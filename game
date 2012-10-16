@@ -1,0 +1,5 @@
+starting_at MainScene
+
+def button_down(id)
+  close if id == Gosu::KbEscape
+end
