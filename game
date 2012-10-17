@@ -1,5 +1,9 @@
-starting_at MainScene
 
+# TODO: provide support to set resolution
+
+starting_at TitleScene
+
+# TODO: this method declaration here is a bit out of place
 def button_down(id)
   close if id == Gosu::KbEscape
 end

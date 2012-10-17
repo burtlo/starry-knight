@@ -1,0 +1,8 @@
+{ 
+  "option" : {
+    "x" : 100,
+    "y" : 100,
+    "padding" : 40,
+    "options" : [ "Start Game", "Exit" ]
+  }
+}

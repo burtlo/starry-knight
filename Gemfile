@@ -1,3 +1,3 @@
 source 'https://rubygems.org'
 
-gem 'misfits', path: "../misfits"
+gem 'metro', path: "../metro"

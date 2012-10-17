@@ -11,19 +11,23 @@ class MainScene < Scene
     @font = Gosu::Font.new(window, Gosu::default_font_name, 20)
   end
 
-  def update
-    if window.button_down? Gosu::KbLeft or window.button_down? Gosu::GpLeft then
+  def events(e)
+    e.on_down Gosu::KbLeft, Gosu::GpLeft do |scene|
       player.turn_left
     end
-    if window.button_down? Gosu::KbRight or window.button_down? Gosu::GpRight then
+
+    e.on_down Gosu::KbRight, Gosu::GpRight do |scene|
       player.turn_right
     end
-    if window.button_down? Gosu::KbUp or window.button_down? Gosu::GpButton0 then
+
+    e.on_down Gosu::KbUp, Gosu::GpButton0 do |scene|
       player.accelerate
     end
+  end
+
+  def update
     player.move
     player.collect_stars star_generator.stars
-
     star_generator.generate
   end
 
