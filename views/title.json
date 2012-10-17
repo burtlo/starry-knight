@@ -1,7 +1,9 @@
 { 
   "option" : {
+    "type" : "options",
     "x" : 100,
     "y" : 100,
+    "z-order" : 5,
     "padding" : 40,
     "options" : [ "Start Game", "Exit" ]
   }

@@ -1,0 +1,7 @@
+score:
+  type: label
+  text: "Score: #{player.score}"
+  x: 10
+  y: 10
+  z-order: 5
+  color: 0xffffff00
