@@ -23,6 +23,10 @@ class MainScene < Scene
     e.on_down Gosu::KbUp, Gosu::GpButton0 do |scene|
       player.accelerate
     end
+    
+    e.on_down Gosu::KbEscape do |scene|
+      window.scene = TitleScene
+    end
   end
 
   def update
