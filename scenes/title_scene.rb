@@ -28,7 +28,7 @@ class TitleScene < Metro::Scene
   end
 
   def start_game
-    window.scene = MainScene
+    transition_to :main
   end
 
   def exit_game

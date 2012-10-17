@@ -24,7 +24,7 @@ class MainScene < Metro::Scene
     end
     
     e.on_hold Gosu::KbEscape do |scene|
-      window.scene = TitleScene
+      transition_to :title
     end
   end
 

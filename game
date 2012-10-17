@@ -1,4 +1,4 @@
 
 # TODO: provide support to set resolution
 
-starting_at TitleScene
+start_at :title
