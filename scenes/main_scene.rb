@@ -1,4 +1,4 @@
-class MainScene < Scene
+class MainScene < Metro::Scene
 
   attr_reader :player, :star_generator, :font
 
@@ -12,19 +12,19 @@ class MainScene < Scene
   end
 
   def events(e)
-    e.on_down Gosu::KbLeft, Gosu::GpLeft do |scene|
+    e.on_hold Gosu::KbLeft, Gosu::GpLeft do |scene|
       player.turn_left
     end
 
-    e.on_down Gosu::KbRight, Gosu::GpRight do |scene|
+    e.on_hold Gosu::KbRight, Gosu::GpRight do |scene|
       player.turn_right
     end
 
-    e.on_down Gosu::KbUp, Gosu::GpButton0 do |scene|
+    e.on_hold Gosu::KbUp, Gosu::GpButton0 do |scene|
       player.accelerate
     end
     
-    e.on_down Gosu::KbEscape do |scene|
+    e.on_hold Gosu::KbEscape do |scene|
       window.scene = TitleScene
     end
   end
