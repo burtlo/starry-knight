@@ -5,7 +5,7 @@ class MainScene < Scene
   def show
     caption = "Gosu Tutorial Game"
     @player = Player.new window
-    player.warp *Misfits::Game.center
+    player.warp *Metro::Game.center
 
     @star_generator = StarGenerator.new(window)
     @font = Gosu::Font.new(window, Gosu::default_font_name, 20)
@@ -34,7 +34,7 @@ class MainScene < Scene
   def draw
     player.draw
     star_generator.draw
-    font.draw("Score: #{player.score}", 10, 10, Misfits::Game::UI, 1.0, 1.0, 0xffffff00)
+    font.draw("Score: #{player.score}", 10, 10, Metro::Game::UI, 1.0, 1.0, 0xffffff00)
   end
 
 end

@@ -45,7 +45,7 @@ class TitleScene < Scene
   def draw
     view["option"]["options"].each_with_index do |option,op_index|
       option_color = op_index == index ? 0xffffff00 : 0xffffffff
-      font.draw option, view["option"]["x"], view["option"]["y"] + view["option"]["padding"] * op_index, Misfits::Game::UI, 1.0, 1.0, option_color
+      font.draw option, view["option"]["x"], view["option"]["y"] + view["option"]["padding"] * op_index, Metro::Game::UI, 1.0, 1.0, option_color
     end
   end
 

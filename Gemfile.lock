@@ -1,7 +1,7 @@
 PATH
-  remote: ../misfits
+  remote: ../metro
   specs:
-    misfits (0.0.1)
+    metro (0.0.1)
       gosu (~> 0.7)
 
 GEM
@@ -13,4 +13,4 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  misfits!
+  metro!

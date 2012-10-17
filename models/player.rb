@@ -27,8 +27,8 @@ class Player
   def move
     @x += @vel_x
     @y += @vel_y
-    @x %= Misfits::Game::Width
-    @y %= Misfits::Game::Height
+    @x %= Metro::Game::Width
+    @y %= Metro::Game::Height
 
     @vel_x *= 0.95
     @vel_y *= 0.95

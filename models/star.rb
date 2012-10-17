@@ -7,12 +7,12 @@ class Star
     @color.red = rand(256-40) + 40
     @color.green = rand(256-40) + 40
     @color.blue = rand(256-40) + 40
-    @x = rand * Misfits::Game::Width
-    @y = rand * Misfits::Game::Height
+    @x = rand * Metro::Game::Width
+    @y = rand * Metro::Game::Height
   end
 
   def draw
     img = animation[Gosu::milliseconds / 100 % animation.size ]
-    img.draw(x - img.width / 2.0, y - img.height / 2.0, Misfits::Game::Stars, 1, 1, color, :add)
+    img.draw(x - img.width / 2.0, y - img.height / 2.0, Metro::Game::Stars, 1, 1, color, :add)
   end
 end
