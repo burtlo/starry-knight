@@ -27,8 +27,8 @@ class Player
   def move
     @x += @vel_x
     @y += @vel_y
-    @x %= Metro::Game::Width
-    @y %= Metro::Game::Height
+    @x %= Metro::Game.width
+    @y %= Metro::Game.height
 
     @vel_x *= 0.95
     @vel_y *= 0.95

@@ -1,4 +1,4 @@
 
-# TODO: provide support to set resolution
+resolution 1024, 768
 
-start_at :title
+first_scene :title

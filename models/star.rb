@@ -7,8 +7,8 @@ class Star
     @color.red = rand(256-40) + 40
     @color.green = rand(256-40) + 40
     @color.blue = rand(256-40) + 40
-    @x = rand * Metro::Game::Width
-    @y = rand * Metro::Game::Height
+    @x = rand * Metro::Game.width
+    @y = rand * Metro::Game.height
   end
 
   def draw
