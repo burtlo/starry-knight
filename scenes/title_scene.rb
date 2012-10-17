@@ -8,6 +8,7 @@ class TitleScene < Metro::Scene
   end
 
   def show
+    window.caption = "Starry Knight"
     @index = 0
     @font = Gosu::Font.new(window, Gosu::default_font_name, 20)
   end

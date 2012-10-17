@@ -3,7 +3,6 @@ class MainScene < Metro::Scene
   attr_reader :player, :star_generator, :font
 
   def show
-    caption = "Gosu Tutorial Game"
     @player = Player.new window
     player.warp *Metro::Game.center
 
