@@ -3,9 +3,9 @@
     "type"    : "label",
     "text"    : "STARRY KNIGHT",
     "x"       : 20,
-    "x-factor": 5,
-    "y-factor": 5,
     "y"       : 20,
+    "x-factor": 3,
+    "y-factor": 3,
     "z-order" : 4,
     "color"   : "0xffffff00" },
 
