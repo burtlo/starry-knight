@@ -1,6 +1,6 @@
 # Starry Knight
 
-This is an example of a game built with [metro](https://github.com/burtlo/metro), a library that gives structure to [gosu](https://github.com/jlnr/gosu) the 2D game development library in Ruby.
+This is an example of a game built with [metro](https://github.com/burtlo/metro), a library that gives structure to [gosu](https://github.com/jlnr/gosu) (the 2D game development library in Ruby).
 
 ## Execution
 
@@ -22,7 +22,7 @@ The root file is the `metro` file which is a Ruby DSL that allows you to specify
 > At the moment the options are limited to the `resolution` and the `first_scene`
 
 ```ruby
-resolution 1024, 768
+resolution 640, 480
 
 first_scene :title
 ```
@@ -66,30 +66,29 @@ A scene may have a view defined for it. If one is defined, by default it should 
   "title" : {
     "type"    : "label",
     "text"    : "STARRY KNIGHT",
-    "x"       : 20,
-    "x-factor": 5,
-    "y-factor": 5,
-    "y"       : 20,
-    "z-order" : 4,
+    "x"       : 20, "y" : 20, "z-order" : 4,
+    "x-factor": 3, "y-factor": 3,
     "color"   : "0xffffff00" },
 
   "menu" : {
     "type" : "select",
-    "x" : 100,
-    "y" : 150,
-    "z-order" : 5,
+    "x" : 100, "y" : 150, "z-order" : 5,
     "padding" : 40,
     "color"   : "0xffffffff", "selected-color" : "0xffff0000",
     "options" : [ "Start Game", "Exit" ] }
 }
 ```
 
-Metro tries to make it easier to build common output and interface components. Here the title screen has a title labell and menu of options. Each element has some information about placement, z-ordering and colors. As always, it is good to have this display logic removed from the codebase to allow for it to easily be manipulated and changed.
+![Title Scene](http://cloud.github.com/downloads/burtlo/starry-knight/title-screen-10-18-12.png)
+
+Metro tries to make it easier to build common output and interface components. Here the title screen has a title label and menu of options. Each element has some information about placement, z-ordering and colors. As always, it is good to have this display logic removed from the codebase to allow for it to easily be manipulated and changed.
 
 The `select` type generates a menu which has two options: 'Start Game' and 'Exit'. The arrow keys and gamepad keys allow you navigate between the choices and the enter key or gamepad 0 key will select the currently highlighted one. The names of the options are mapped to the methods that we saw previously (downcasing and replacing all spaces with undescores). This convention makes it easy to make a simple menu of options and listen for the events from each of the events.
 
 
 #### Main Scene
+
+![Main Scene](http://cloud.github.com/downloads/burtlo/starry-knight/main-screen-10-18-12.png)
 
 ```ruby
 class MainScene < Metro::Scene
@@ -134,7 +133,6 @@ class MainScene < Metro::Scene
 end
 ```
 
-This main scene is the a near copy of the results from completing the [ruby tutorial for gosu](https://github.com/jlnr/gosu/wiki/Ruby-Tutorial). The largest difference is the `evenets` method. This method receives an `EventRelay` which allows you to easily prescribe keystrokes and gamepad events (on_up, on_down, on_hold) to an action. 
+This main scene is the a near copy of the results from completing the [ruby tutorial for gosu](https://github.com/jlnr/gosu/wiki/Ruby-Tutorial). The largest difference is the `events` method. This method receives an `EventRelay` which allows you to easily prescribe keystrokes and gamepad events (on_up, on_down, on_hold) to an action.
 
 This makes more declarative statements about the events you are interested in receiving, unifies all of the events (button_up, button_down, and button_down?) into similar declarations, and removes the excess noise that usually appears in `update`.
-
