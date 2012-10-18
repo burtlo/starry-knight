@@ -1,8 +1,5 @@
 class TitleScene < Metro::Scene
-
-  attr_reader :font
-  attr_accessor :index
-
+  
   def show
     window.caption = "Starry Knight"
   end
