@@ -2,9 +2,18 @@
   "option" : {
     "type" : "options",
     "x" : 100,
-    "y" : 100,
+    "y" : 150,
     "z-order" : 5,
     "padding" : 40,
-    "options" : [ "Start Game", "Exit" ]
-  }
+    "options" : [ "Start Game", "Exit" ] },
+  
+  "title" : {
+    "type"    : "label",
+    "text"    : "STARRY KNIGHT",
+    "x"       : 20,
+    "x-factor": 5,
+    "y-factor": 5,
+    "y"       : 20,
+    "z-order" : 4,
+    "color"   : "0xffffff00" }
 }
