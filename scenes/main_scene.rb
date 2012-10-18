@@ -1,6 +1,6 @@
 class MainScene < Metro::Scene
 
-  attr_reader :player, :star_generator, :font
+  attr_reader :player, :star_generator
 
   def show
     @player = Player.new window
