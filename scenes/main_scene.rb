@@ -9,19 +9,19 @@ class MainScene < Metro::Scene
   end
 
   def events(e)
-    e.on_hold Gosu::KbLeft, Gosu::GpLeft do |scene|
+    e.on_hold Gosu::KbLeft, Gosu::GpLeft do
       player.turn_left
     end
 
-    e.on_hold Gosu::KbRight, Gosu::GpRight do |scene|
+    e.on_hold Gosu::KbRight, Gosu::GpRight do
       player.turn_right
     end
 
-    e.on_hold Gosu::KbUp, Gosu::GpButton0 do |scene|
+    e.on_hold Gosu::KbUp, Gosu::GpButton0 do
       player.accelerate
     end
 
-    e.on_hold Gosu::KbEscape do |scene|
+    e.on_up Gosu::KbEscape do
       transition_to :title
     end
   end
