@@ -1,5 +1,5 @@
 class TitleScene < Metro::Scene
-  
+
   def show
     window.caption = "Starry Knight"
   end
