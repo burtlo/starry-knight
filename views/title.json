@@ -1,10 +1,11 @@
 { 
-  "option" : {
-    "type" : "options",
+  "menu" : {
+    "type" : "select",
     "x" : 100,
     "y" : 150,
     "z-order" : 5,
     "padding" : 40,
+    "color"   : "0xffffffff", "selected-color" : "0xffff0000",
     "options" : [ "Start Game", "Exit" ] },
   
   "title" : {
