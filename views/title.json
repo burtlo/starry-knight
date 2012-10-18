@@ -9,6 +9,13 @@
     "z-order" : 4,
     "color"   : "0xffffff00" },
 
+  "logo" : {
+    "type"    : "image",
+    "x"       : 500,
+    "y"       : 20,
+    "z-order" : 4,
+    "path"    : "player.png" },
+
   "menu" : {
     "type" : "select",
     "x" : 100,
