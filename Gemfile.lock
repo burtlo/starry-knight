@@ -1,5 +1,6 @@
-PATH
-  remote: ../metro
+GIT
+  remote: git://github.com/burtlo/metro.git
+  revision: 558ef53e4b159e37af758f804de02140f38c138f
   specs:
     metro (0.0.1)
       gosu (~> 0.7)

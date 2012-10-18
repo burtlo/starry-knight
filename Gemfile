@@ -1,3 +1,3 @@
 source 'https://rubygems.org'
 
-gem 'metro', path: "../metro"
+gem 'metro', git: "git://github.com/burtlo/metro.git"
