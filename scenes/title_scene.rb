@@ -8,7 +8,7 @@ class TitleScene < Metro::Scene
     transition_to :main
   end
 
-  def exit_game
+  def exit
     window.close
   end
 

@@ -1,13 +1,4 @@
-{ 
-  "menu" : {
-    "type" : "select",
-    "x" : 100,
-    "y" : 150,
-    "z-order" : 5,
-    "padding" : 40,
-    "color"   : "0xffffffff", "selected-color" : "0xffff0000",
-    "options" : [ "Start Game", "Exit" ] },
-  
+{
   "title" : {
     "type"    : "label",
     "text"    : "STARRY KNIGHT",
@@ -16,5 +7,14 @@
     "y-factor": 5,
     "y"       : 20,
     "z-order" : 4,
-    "color"   : "0xffffff00" }
+    "color"   : "0xffffff00" },
+
+  "menu" : {
+    "type" : "select",
+    "x" : 100,
+    "y" : 150,
+    "z-order" : 5,
+    "padding" : 40,
+    "color"   : "0xffffffff", "selected-color" : "0xffff0000",
+    "options" : [ "Start Game", "Exit" ] }
 }
