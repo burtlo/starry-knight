@@ -42,12 +42,17 @@ class Animation
   end
 
   def step!
-    @step_block.call
+    scene.instance_eval(&@step_block)
     @step_count = @step_count + 1
+    scene.instance_eval(&@completed) if completed?
   end
 
   def step(&block)
     @step_block = block if block
+  end
+
+  def completed(&block)
+    @completed = block if block
   end
 
 end
@@ -85,11 +90,16 @@ class TitleTransitionScene < Metro::Scene
       update_y: update_y,
       update_rot: update_rot,
       step_count: step_count,
-      animation_steps: data[:interval]
+      animation_steps: data[:interval],
+      scene: self
 
     @animation.step do
       player.shift(update_x,update_y)
       player.rotate(update_rot)
+    end
+
+    @animation.completed do
+      transition_to :main
     end
 
   end
@@ -100,17 +110,8 @@ class TitleTransitionScene < Metro::Scene
     end
   end
 
-  def animation_step
-    @animation.step!
-  end
-
-  def animation_completed?
-    @animation.completed?
-  end
-
   def update
-    transition_to :main if animation_completed?
-    animation_step
+    @animation.step!
   end
 
   def draw
