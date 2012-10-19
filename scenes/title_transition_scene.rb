@@ -39,7 +39,7 @@ class Animation
   end
 
   def completed?
-    @step_count >= @animation_steps
+    @step_count >= interval
   end
 
   def step!
@@ -124,7 +124,6 @@ class ImplicitAnimation < Animation
 
   def after_initialize
     @deltas = {}
-    @animation_steps = interval
 
     @attributes = to.map { |attribute,final| attribute }
 
