@@ -26,7 +26,26 @@ class ScriptedPlayer
 
 end
 
-require 'ostruct'
+class Animation
+
+  def initialize(options)
+    options.each do |key,value|
+      send :instance_variable_set, "@#{key}".to_sym, value
+      self.class.send :define_method, key do
+        instance_variable_get("@#{key}")
+      end
+    end
+  end
+
+  def completed?
+    @step_count >= @animation_steps
+  end
+
+  def step!
+    @step_count = @step_count + 1
+  end
+
+end
 
 class TitleTransitionScene < Metro::Scene
 
@@ -57,15 +76,11 @@ class TitleTransitionScene < Metro::Scene
     update_rot = distance_rot / data[:interval]
     step_count = 0
 
-    @animation = OpenStruct.new update_x: update_x,
+    @animation = Animation.new update_x: update_x,
       update_y: update_y,
       update_rot: update_rot,
       step_count: step_count,
       animation_steps: data[:interval]
-
-    def @animation.completed?
-      step_count >= animation_steps
-    end
 
   end
 
@@ -86,7 +101,7 @@ class TitleTransitionScene < Metro::Scene
   end
 
   def update_step_count
-    @animation.step_count += 1
+    @animation.step!
   end
 
   def update
