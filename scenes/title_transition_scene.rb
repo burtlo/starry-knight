@@ -26,6 +26,8 @@ class ScriptedPlayer
 
 end
 
+require 'ostruct'
+
 class TitleTransitionScene < Metro::Scene
 
   attr_reader :player
@@ -50,10 +52,16 @@ class TitleTransitionScene < Metro::Scene
     distance_y = data[:to][:y] - player.y
     distance_rot = data[:to][:angle]
 
-    @update_x = distance_x / data[:interval]
-    @update_y = distance_y / data[:interval]
-    @update_rot = distance_rot / data[:interval]
-    @step_count = 0
+    update_x = distance_x / data[:interval]
+    update_y = distance_y / data[:interval]
+    update_rot = distance_rot / data[:interval]
+    step_count = 0
+
+    @animation = OpenStruct.new update_x: update_x,
+      update_y: update_y,
+      update_rot: update_rot,
+      step_count: step_count
+
   end
 
   def events(e)
@@ -67,17 +75,17 @@ class TitleTransitionScene < Metro::Scene
   end
 
   def animation_step
-    player.shift(@update_x,@update_y)
-    player.rotate(@update_rot)
+    player.shift(@animation.update_x,@animation.update_y)
+    player.rotate(@animation.update_rot)
     update_step_count
   end
 
   def animation_completed?
-    @step_count == animation_steps
+    @animation.step_count == animation_steps
   end
 
   def update_step_count
-    @step_count += 1
+    @animation.step_count += 1
   end
 
   def update
