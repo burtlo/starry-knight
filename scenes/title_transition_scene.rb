@@ -72,6 +72,14 @@ class Animation
 
 end
 
+module LinearStepping
+  extend self
+
+  def calculate(start,final,interval)
+    [ (final - start) / interval ] * interval
+  end
+end
+
 class ImplicitAnimation < Animation
 
   attr_reader :attributes
@@ -81,8 +89,12 @@ class ImplicitAnimation < Animation
     deltas[attribute].at(@step_count)
   end
 
-  def calculate_linear_delta(start,final,interval)
-    [ (final - start) / interval ] * interval
+  def stepping(stepping)
+    @steppings ||= begin
+      hash = Hash.new(LinearStepping)
+      hash.merge! linear: LinearStepping
+    end
+    @steppings[stepping]
   end
 
   def after_initialize
@@ -93,7 +105,7 @@ class ImplicitAnimation < Animation
 
     to.each do |attribute,final|
       start = actor.send(attribute)
-      deltas[attribute] = calculate_linear_delta(start,final,interval)
+      deltas[attribute] = stepping(:linear).calculate(start,final,interval)
     end
 
     step do
