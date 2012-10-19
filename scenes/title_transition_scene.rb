@@ -75,8 +75,13 @@ end
 module LinearStepping
   extend self
 
+  def linear(moment,start,final,interval)
+    change = final - start
+    change * moment / interval + start
+  end
+
   def calculate(start,final,interval)
-    [ (final - start) / interval ] * interval
+    (1..interval).map { |time| linear(time,start,final,interval) }
   end
 end
 
@@ -92,9 +97,14 @@ class ImplicitAnimation < Animation
   def stepping(stepping)
     @steppings ||= begin
       hash = Hash.new(LinearStepping)
-      hash.merge! linear: LinearStepping
+      hash.merge! linear: LinearStepping,
+        ease_in: EaseInStepping
     end
     @steppings[stepping]
+  end
+
+  def easing
+    @easing || :linear
   end
 
   def after_initialize
@@ -105,13 +115,12 @@ class ImplicitAnimation < Animation
 
     to.each do |attribute,final|
       start = actor.send(attribute)
-      deltas[attribute] = stepping(:linear).calculate(start,final,interval)
+      deltas[attribute] = stepping(easing).calculate(start,final,interval)
     end
 
     step do
       attributes.each do |attribute|
-        updated_value = actor.send(attribute) + delta_for_step(attribute)
-        actor.send("#{attribute}=",updated_value)
+        actor.send "#{attribute}=", delta_for_step(attribute)
       end
     end
 
