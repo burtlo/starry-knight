@@ -1,5 +1,6 @@
 debug:
   type: label
+  debug: true
   text: "Player: #{player.x.to_f.floor} #{player.y.to_f.floor} - #{player.image.height} #{player.image.width}"
   x: 10
   y: 10

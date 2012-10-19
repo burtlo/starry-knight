@@ -5,7 +5,7 @@ class TitleScene < Metro::Scene
   end
 
   def start_game
-    transition_to :titletransition
+    transition_to :title_transition
   end
 
   def exit

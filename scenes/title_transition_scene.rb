@@ -15,7 +15,7 @@ class ScriptedPlayer
     @x += delta_x
     @y += delta_y
   end
-  
+
   def rotate(delta_degrees)
     @angle += delta_degrees
   end
@@ -30,16 +30,20 @@ class TitleTransitionScene < Metro::Scene
 
   attr_reader :player
 
+  def prepare_transition_from(title_scene)
+    logo = title_scene.view['logo']
+    @start_x = logo['x']
+    @start_y = logo['y']
+  end
+
   def show
     @player = ScriptedPlayer.new window
 
-    start_x, start_y = 540, 80
+    # start_x, start_y = 540, 80
     final_x, final_y = Metro::Game.center
 
-    distance = Gosu.distance(start_x,start_y,final_x,final_y)
-
-    distance_x = final_x - start_x
-    distance_y = final_y - start_y
+    distance_x = final_x - @start_x
+    distance_y = final_y - @start_y
     distance_rot = 1 * 360 * -1
 
     @update_x = distance_x / 80.0
@@ -47,7 +51,7 @@ class TitleTransitionScene < Metro::Scene
     @update_rot = distance_rot / 80.0
     @update_count = 0
 
-    player.warp start_x, start_y
+    player.warp @start_x, @start_y
   end
 
   def events(e)
@@ -68,7 +72,6 @@ class TitleTransitionScene < Metro::Scene
     transition_to :main if @update_count == 80.0
 
     @update_count += 1
-
 
   end
 
