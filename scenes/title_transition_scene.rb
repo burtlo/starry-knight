@@ -28,13 +28,19 @@ end
 
 class Animation
 
+  attr_reader :step_count
+
   def initialize(options)
+    @step_count = 0
+
     options.each do |key,value|
       send :instance_variable_set, "@#{key}".to_sym, value
+      puts "Defining Reader Method for #{key}"
       self.class.send :define_method, key do
         instance_variable_get("@#{key}")
       end
     end
+    after_initialize
   end
 
   def completed?
@@ -43,7 +49,7 @@ class Animation
 
   def step!
     return if completed?
-    scene.instance_eval(&@step_block)
+    @step_block.call
     @step_count = @step_count + 1
     scene.instance_eval(&@completed) if completed?
   end
@@ -54,6 +60,29 @@ class Animation
 
   def completed(&block)
     @completed = block if block
+  end
+
+end
+
+class ImplicitAnimation < Animation
+
+  def after_initialize
+    @animation_steps = interval
+
+    distance_x = to[:x] - actor.x
+    distance_y = to[:y] - actor.y
+    distance_rot = to[:angle]
+
+    @update_x = distance_x / interval
+    @update_y = distance_y / interval
+    @update_angle = distance_rot / interval
+
+    step do
+      actor.x = actor.x + @update_x
+      actor.y = actor.y + @update_y
+      actor.angle = actor.angle + @update_angle
+    end
+
   end
 
 end
@@ -77,34 +106,11 @@ class TitleTransitionScene < Metro::Scene
 
     final_x, final_y = Metro::Game.center
 
-    move_player to: { x: final_x, y: final_y, angle: -360.0 }, interval: 80.0
-  end
-
-  def move_player(data)
-    distance_x = data[:to][:x] - player.x
-    distance_y = data[:to][:y] - player.y
-    distance_rot = data[:to][:angle]
-
-    update_x = distance_x / data[:interval]
-    update_y = distance_y / data[:interval]
-    update_rot = distance_rot / data[:interval]
-    step_count = 0
-
-    animation = Animation.new update_x: update_x,
-      update_y: update_y,
-      update_rot: update_rot,
-      step_count: step_count,
-      animation_steps: data[:interval],
-      scene: self
-
-    animation.step do
-      player.shift(update_x,update_y)
-      player.rotate(update_rot)
-    end
-
-    animation.completed do
-      transition_to :main
-    end
+    animation = ImplicitAnimation.new actor: player,
+      to: { x: final_x, y: final_y, angle: -360.0 },
+      interval: 80.0,
+      scene: self,
+      completed: lambda { |scene| transition_to :main }
 
     animations.push animation
   end
