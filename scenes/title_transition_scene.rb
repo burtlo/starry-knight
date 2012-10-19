@@ -75,15 +75,29 @@ end
 module LinearStepping
   extend self
 
-  def linear(moment,start,final,interval)
-    change = final - start
+  def linear(moment,start,change,interval)
     change * moment / interval + start
   end
 
   def calculate(start,final,interval)
-    (1..interval).map { |time| linear(time,start,final,interval) }
+    change = final - start
+    (1..interval).map { |time| linear(time,start,change,interval) }
   end
 end
+
+module EaseInStepping
+  extend self
+
+  def ease_in_quad(moment,start,change,interval)
+    change * (moment = moment / interval) * moment + start
+  end
+
+  def calculate(start,final,interval)
+    change = (final - start)
+    (1..interval).map { |time| ease_in_quad(time,start,change,interval) }
+  end
+end
+
 
 class ImplicitAnimation < Animation
 
@@ -104,7 +118,7 @@ class ImplicitAnimation < Animation
   end
 
   def easing
-    @easing || :linear
+    @easing || :ease_in
   end
 
   def after_initialize
