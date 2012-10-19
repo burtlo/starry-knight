@@ -1,0 +1,7 @@
+debug:
+  type: label
+  text: "Player: #{player.x.to_f.floor} #{player.y.to_f.floor} - #{player.image.height} #{player.image.width}"
+  x: 10
+  y: 10
+  z-order: 5
+  color: 0xffffff00

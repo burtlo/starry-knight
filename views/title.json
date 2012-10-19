@@ -11,8 +11,8 @@
 
   "logo" : {
     "type"    : "image",
-    "x"       : 500,
-    "y"       : 20,
+    "x"       : 540,
+    "y"       : 80,
     "z-order" : 4,
     "path"    : "player.png" },
 
