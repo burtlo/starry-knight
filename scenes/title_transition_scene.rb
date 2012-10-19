@@ -74,24 +74,22 @@ end
 
 class ImplicitAnimation < Animation
 
-  attr_reader :update
+  attr_reader :deltas
 
   def after_initialize
-    @update = {}
+    @deltas = {}
     @animation_steps = interval
 
-    distance_x = to[:x] - actor.x
-    distance_y = to[:y] - actor.y
-    distance_angle = to[:angle]
-
-    update[:x] = distance_x / interval
-    update[:y] = distance_y / interval
-    update[:angle] = distance_angle / interval
+    to.each do |attribute,final|
+      delta = final - actor.send(attribute)
+      deltas[attribute] = delta / interval
+    end
 
     step do
-      actor.x = actor.x + update[:x]
-      actor.y = actor.y + update[:y]
-      actor.angle = actor.angle + update[:angle]
+      deltas.each do |attribute,delta_per_interval|
+        updated_value = actor.send(attribute) + delta_per_interval
+        actor.send("#{attribute}=",updated_value)
+      end
     end
   end
 
