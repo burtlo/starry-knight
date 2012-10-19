@@ -38,20 +38,22 @@ class TitleTransitionScene < Metro::Scene
 
   def show
     @player = ScriptedPlayer.new window
+    player.warp @start_x, @start_y
 
-    # start_x, start_y = 540, 80
     final_x, final_y = Metro::Game.center
 
-    distance_x = final_x - @start_x
-    distance_y = final_y - @start_y
-    distance_rot = 1 * 360 * -1
+    move_player to: { x: final_x, y: final_y, angle: -360.0 }, interval: animation_steps
+  end
 
-    @update_x = distance_x / 80.0
-    @update_y = distance_y / 80.0
-    @update_rot = distance_rot / 80.0
-    @update_count = 0
+  def move_player(data)
+    distance_x = data[:to][:x] - player.x
+    distance_y = data[:to][:y] - player.y
+    distance_rot = data[:to][:angle]
 
-    player.warp @start_x, @start_y
+    @update_x = distance_x / data[:interval]
+    @update_y = distance_y / data[:interval]
+    @update_rot = distance_rot / data[:interval]
+    @step_count = 0
   end
 
   def events(e)
@@ -60,19 +62,27 @@ class TitleTransitionScene < Metro::Scene
     end
   end
 
+  def animation_steps
+    80.0
+  end
+
+  def animation_step
+    player.shift(@update_x,@update_y)
+    player.rotate(@update_rot)
+    update_step_count
+  end
+
+  def animation_completed?
+    @step_count == animation_steps
+  end
+
+  def update_step_count
+    @step_count += 1
+  end
+
   def update
-    # spin hero
-    # move the hero to the center
-    if @update_count != 0
-      player.shift(@update_x,@update_y)
-      player.rotate(@update_rot)
-    end
-    # when hero has reached center transition to main scene
-
-    transition_to :main if @update_count == 80.0
-
-    @update_count += 1
-
+    transition_to :main if animation_completed?
+    animation_step
   end
 
   def draw
