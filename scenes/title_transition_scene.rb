@@ -1,23 +1,19 @@
 class ScriptedPlayer
 
-  attr_accessor :x, :y, :angle, :image
+  attr_accessor :x, :y, :angle
 
-  def initialize window
+  attr_accessor :window
+
+  def initialize
     @x = @y = @angle = 0
-    @image = Gosu::Image.new window, asset_path("player.png"), false
+  end
+
+  def image
+    @image ||= Gosu::Image.new window, asset_path("player.png"), false
   end
 
   def warp(x,y)
     @x, @y = x, y
-  end
-
-  def shift(delta_x,delta_y)
-    @x += delta_x
-    @y += delta_y
-  end
-
-  def rotate(delta_degrees)
-    @angle += delta_degrees
   end
 
   def draw
@@ -35,7 +31,6 @@ class Animation
 
     options.each do |key,value|
       send :instance_variable_set, "@#{key}".to_sym, value
-      puts "Defining Reader Method for #{key}"
       self.class.send :define_method, key do
         instance_variable_get("@#{key}")
       end
@@ -49,9 +44,22 @@ class Animation
 
   def step!
     return if completed?
-    @step_block.call
+
+    if respond_to? :step_block
+      scene.instance_eval(&step_block)
+    else
+      @step_block.call
+    end
+
     @step_count = @step_count + 1
-    scene.instance_eval(&@completed) if completed?
+
+    if completed?
+      if respond_to? :completed
+        scene.instance_eval(&completed)
+      else
+        @completed.call
+      end
+    end
   end
 
   def step(&block)
@@ -93,17 +101,18 @@ class TitleTransitionScene < Metro::Scene
 
   attr_reader :animations
 
+  def initialize
+    @animations = []
+  end
+
   def prepare_transition_from(title_scene)
     logo = title_scene.view['logo']
-    @start_x = logo['x']
-    @start_y = logo['y']
+    @player = ScriptedPlayer.new
+    player.warp logo['x'], logo['y']
   end
 
   def show
-    @animations = []
-    @player = ScriptedPlayer.new window
-    player.warp @start_x, @start_y
-
+    player.window = window
     final_x, final_y = Metro::Game.center
 
     animation = ImplicitAnimation.new actor: player,
