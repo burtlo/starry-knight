@@ -56,7 +56,7 @@ class TitleTransitionScene < Metro::Scene
 
   def events(e)
     e.on_up Gosu::KbEscape do
-      transition_to :title
+      transition_to :main
     end
   end
 
