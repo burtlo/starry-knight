@@ -42,6 +42,7 @@ class Animation
   end
 
   def step!
+    return if completed?
     scene.instance_eval(&@step_block)
     @step_count = @step_count + 1
     scene.instance_eval(&@completed) if completed?
@@ -61,6 +62,8 @@ class TitleTransitionScene < Metro::Scene
 
   attr_reader :player
 
+  attr_reader :animations
+
   def prepare_transition_from(title_scene)
     logo = title_scene.view['logo']
     @start_x = logo['x']
@@ -68,6 +71,7 @@ class TitleTransitionScene < Metro::Scene
   end
 
   def show
+    @animations = []
     @player = ScriptedPlayer.new window
     player.warp @start_x, @start_y
 
@@ -86,22 +90,23 @@ class TitleTransitionScene < Metro::Scene
     update_rot = distance_rot / data[:interval]
     step_count = 0
 
-    @animation = Animation.new update_x: update_x,
+    animation = Animation.new update_x: update_x,
       update_y: update_y,
       update_rot: update_rot,
       step_count: step_count,
       animation_steps: data[:interval],
       scene: self
 
-    @animation.step do
+    animation.step do
       player.shift(update_x,update_y)
       player.rotate(update_rot)
     end
 
-    @animation.completed do
+    animation.completed do
       transition_to :main
     end
 
+    animations.push animation
   end
 
   def events(e)
@@ -111,7 +116,7 @@ class TitleTransitionScene < Metro::Scene
   end
 
   def update
-    @animation.step!
+    animations.each { |animation| animation.step! }
   end
 
   def draw
