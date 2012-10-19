@@ -72,32 +72,33 @@ class Animation
 
 end
 
-module LinearStepping
-  extend self
+module Easing
+  module Linear
+    extend self
 
-  def linear(moment,start,change,interval)
-    change * moment / interval + start
+    def linear(moment,start,change,interval)
+      change * moment / interval + start
+    end
+
+    def calculate(start,final,interval)
+      change = final - start
+      (1..interval).map { |time| linear(time,start,change,interval) }
+    end
   end
 
-  def calculate(start,final,interval)
-    change = final - start
-    (1..interval).map { |time| linear(time,start,change,interval) }
+  module EaseIn
+    extend self
+
+    def ease_in_quad(moment,start,change,interval)
+      change * (moment = moment / interval) * moment + start
+    end
+
+    def calculate(start,final,interval)
+      change = final - start
+      (1..interval).map { |time| ease_in_quad(time,start,change,interval) }
+    end
   end
 end
-
-module EaseInStepping
-  extend self
-
-  def ease_in_quad(moment,start,change,interval)
-    change * (moment = moment / interval) * moment + start
-  end
-
-  def calculate(start,final,interval)
-    change = (final - start)
-    (1..interval).map { |time| ease_in_quad(time,start,change,interval) }
-  end
-end
-
 
 class ImplicitAnimation < Animation
 
@@ -110,15 +111,15 @@ class ImplicitAnimation < Animation
 
   def stepping(stepping)
     @steppings ||= begin
-      hash = Hash.new(LinearStepping)
-      hash.merge! linear: LinearStepping,
-        ease_in: EaseInStepping
+      hash = Hash.new(Easing::Linear)
+      hash.merge! linear: Easing::Linear,
+        ease_in: Easing::EaseIn
     end
     @steppings[stepping]
   end
 
   def easing
-    @easing || :ease_in
+    @easing || :linear
   end
 
   def after_initialize
@@ -165,6 +166,7 @@ class TitleTransitionScene < Metro::Scene
     animation = ImplicitAnimation.new actor: player,
       to: { x: final_x, y: final_y, angle: -360.0 },
       interval: 80.0,
+      easing: :ease_in,
       scene: self,
       completed: lambda { |scene| transition_to :main }
 
