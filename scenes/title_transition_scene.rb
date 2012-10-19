@@ -45,21 +45,35 @@ class Animation
   def step!
     return if completed?
 
-    if respond_to? :step_block
-      scene.instance_eval(&step_block)
+    execute_step
+    update_step_count
+
+    complete! if completed?
+  end
+
+  def update_step_count
+    @step_count = step_count + step_interval
+  end
+
+  def step_interval
+    1
+  end
+
+  def execute_block_in_context(block_name)
+    if respond_to? block_name
+      block_to_execute = send(block_name)
+      scene.instance_eval(&block_to_execute)
     else
-      @step_block.call
+      instance_variable_get("@#{block_name}").call
     end
+  end
 
-    @step_count = @step_count + 1
+  def execute_step
+    execute_block_in_context(:step_block)
+  end
 
-    if completed?
-      if respond_to? :completed
-        scene.instance_eval(&completed)
-      else
-        @completed.call
-      end
-    end
+  def complete!
+    execute_block_in_context(:completed)
   end
 
   def step(&block)
