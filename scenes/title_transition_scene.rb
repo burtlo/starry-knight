@@ -24,10 +24,10 @@ end
 
 class Animation
 
-  attr_reader :step_count
+  attr_reader :current_step
 
   def initialize(options)
-    @step_count = 0
+    @current_step = 0
 
     options.each do |key,value|
       send :instance_variable_set, "@#{key}".to_sym, value
@@ -39,20 +39,20 @@ class Animation
   end
 
   def completed?
-    step_count >= interval
+    current_step >= interval
   end
 
   def step!
     return if completed?
 
     execute_step
-    update_step_count
+    next_step
 
     complete! if completed?
   end
 
-  def update_step_count
-    @step_count = step_count + step_interval
+  def next_step
+    @current_step = current_step + step_interval
   end
 
   def step_interval
@@ -120,7 +120,7 @@ class ImplicitAnimation < Animation
   attr_reader :deltas
 
   def delta_for_step(attribute)
-    deltas[attribute].at(@step_count)
+    deltas[attribute].at(current_step)
   end
 
   def stepping(stepping)
