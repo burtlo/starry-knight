@@ -39,7 +39,7 @@ class Animation
   end
 
   def completed?
-    @step_count >= interval
+    step_count >= interval
   end
 
   def step!
