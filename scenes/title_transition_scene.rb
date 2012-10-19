@@ -12,146 +12,8 @@ class ScriptedPlayer
     @image ||= Gosu::Image.new window, asset_path("player.png"), false
   end
 
-  def warp(x,y)
-    @x, @y = x, y
-  end
-
   def draw
     image.draw_rot(x,y,1,angle)
-  end
-
-end
-
-class Animation
-
-  attr_reader :current_step
-
-  def initialize(options)
-    @current_step = 0
-
-    options.each do |key,value|
-      send :instance_variable_set, "@#{key}".to_sym, value
-      self.class.send :define_method, key do
-        instance_variable_get("@#{key}")
-      end
-    end
-    after_initialize
-  end
-
-  def completed?
-    current_step >= interval
-  end
-
-  def step!
-    return if completed?
-
-    execute_step
-    next_step
-
-    complete! if completed?
-  end
-
-  def next_step
-    @current_step = current_step + step_interval
-  end
-
-  def step_interval
-    1
-  end
-
-  def execute_block_in_context(block_name)
-    if respond_to? block_name
-      block_to_execute = send(block_name)
-      scene.instance_eval(&block_to_execute)
-    else
-      instance_variable_get("@#{block_name}").call
-    end
-  end
-
-  def execute_step
-    execute_block_in_context(:step_block)
-  end
-
-  def complete!
-    execute_block_in_context(:completed)
-  end
-
-  def step(&block)
-    @step_block = block if block
-  end
-
-  def completed(&block)
-    @completed = block if block
-  end
-
-end
-
-module Easing
-  module Linear
-    extend self
-
-    def linear(moment,start,change,interval)
-      change * moment / interval + start
-    end
-
-    def calculate(start,final,interval)
-      change = final - start
-      (1..interval).map { |time| linear(time,start,change,interval) }
-    end
-  end
-
-  module EaseIn
-    extend self
-
-    def ease_in_quad(moment,start,change,interval)
-      change * (moment = moment / interval) * moment + start
-    end
-
-    def calculate(start,final,interval)
-      change = final - start
-      (1..interval).map { |time| ease_in_quad(time,start,change,interval) }
-    end
-  end
-end
-
-class ImplicitAnimation < Animation
-
-  attr_reader :attributes
-  attr_reader :deltas
-
-  def delta_for_step(attribute)
-    deltas[attribute].at(current_step)
-  end
-
-  def stepping(stepping)
-    @steppings ||= begin
-      hash = Hash.new(Easing::Linear)
-      hash.merge! linear: Easing::Linear,
-        ease_in: Easing::EaseIn
-    end
-    @steppings[stepping]
-  end
-
-  def easing
-    @easing || :linear
-  end
-
-  def after_initialize
-    @deltas = {}
-
-    @attributes = to.map { |attribute,final| attribute }
-
-    to.each do |attribute,final|
-      start = actor.send(attribute)
-      deltas[attribute] = stepping(easing).calculate(start,final,interval)
-    end
-
-    step do
-      attributes.each do |attribute|
-        actor.send "#{attribute}=", delta_for_step(attribute)
-      end
-    end
-
   end
 
 end
@@ -169,7 +31,8 @@ class TitleTransitionScene < Metro::Scene
   def prepare_transition_from(title_scene)
     logo = title_scene.view['logo']
     @player = ScriptedPlayer.new
-    player.warp logo['x'], logo['y']
+    player.x = logo['x']
+    player.y = logo['y']
   end
 
   def show
@@ -180,7 +43,7 @@ class TitleTransitionScene < Metro::Scene
       to: { x: final_x, y: final_y, angle: -360.0 },
       interval: 80.0,
       easing: :ease_in,
-      scene: self,
+      context: self,
       completed: lambda { |scene| transition_to :main }
 
     animations.push animation
