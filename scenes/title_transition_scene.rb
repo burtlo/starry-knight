@@ -74,23 +74,35 @@ end
 
 class ImplicitAnimation < Animation
 
+  attr_reader :attributes
   attr_reader :deltas
+
+  def delta_for_step(attribute)
+    deltas[attribute].at(@step_count)
+  end
+
+  def calculate_linear_delta(start,final,interval)
+    [ (final - start) / interval ] * interval
+  end
 
   def after_initialize
     @deltas = {}
     @animation_steps = interval
 
+    @attributes = to.map { |attribute,final| attribute }
+
     to.each do |attribute,final|
-      delta = final - actor.send(attribute)
-      deltas[attribute] = delta / interval
+      start = actor.send(attribute)
+      deltas[attribute] = calculate_linear_delta(start,final,interval)
     end
 
     step do
-      deltas.each do |attribute,delta_per_interval|
-        updated_value = actor.send(attribute) + delta_per_interval
+      attributes.each do |attribute|
+        updated_value = actor.send(attribute) + delta_for_step(attribute)
         actor.send("#{attribute}=",updated_value)
       end
     end
+
   end
 
 end
