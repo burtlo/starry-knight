@@ -44,7 +44,7 @@ class TitleTransitionScene < Metro::Scene
 
     final_x, final_y = Metro::Game.center
 
-    move_player to: { x: final_x, y: final_y, angle: -360.0 }, interval: animation_steps
+    move_player to: { x: final_x, y: final_y, angle: -360.0 }, interval: 80.0
   end
 
   def move_player(data)
@@ -60,7 +60,12 @@ class TitleTransitionScene < Metro::Scene
     @animation = OpenStruct.new update_x: update_x,
       update_y: update_y,
       update_rot: update_rot,
-      step_count: step_count
+      step_count: step_count,
+      animation_steps: data[:interval]
+
+    def @animation.completed?
+      step_count >= animation_steps
+    end
 
   end
 
@@ -70,10 +75,6 @@ class TitleTransitionScene < Metro::Scene
     end
   end
 
-  def animation_steps
-    80.0
-  end
-
   def animation_step
     player.shift(@animation.update_x,@animation.update_y)
     player.rotate(@animation.update_rot)
@@ -81,7 +82,7 @@ class TitleTransitionScene < Metro::Scene
   end
 
   def animation_completed?
-    @animation.step_count == animation_steps
+    @animation.completed?
   end
 
   def update_step_count
