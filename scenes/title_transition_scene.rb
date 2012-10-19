@@ -74,23 +74,25 @@ end
 
 class ImplicitAnimation < Animation
 
+  attr_reader :update
+
   def after_initialize
+    @update = {}
     @animation_steps = interval
 
     distance_x = to[:x] - actor.x
     distance_y = to[:y] - actor.y
-    distance_rot = to[:angle]
+    distance_angle = to[:angle]
 
-    @update_x = distance_x / interval
-    @update_y = distance_y / interval
-    @update_angle = distance_rot / interval
+    update[:x] = distance_x / interval
+    update[:y] = distance_y / interval
+    update[:angle] = distance_angle / interval
 
     step do
-      actor.x = actor.x + @update_x
-      actor.y = actor.y + @update_y
-      actor.angle = actor.angle + @update_angle
+      actor.x = actor.x + update[:x]
+      actor.y = actor.y + update[:y]
+      actor.angle = actor.angle + update[:angle]
     end
-
   end
 
 end
