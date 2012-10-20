@@ -1,56 +1,6 @@
-class ScriptedPlayer
-
-  attr_accessor :x, :y, :angle
-
-  attr_accessor :window
-
-  def initialize
-    @x = @y = @angle = 0
-  end
-
-  def image
-    @image ||= Gosu::Image.new window, asset_path("player.png"), false
-  end
-
-  def draw
-    image.draw_rot(x,y,1,angle)
-  end
-
-end
-
-class Title
-
-  attr_accessor :x, :y, :z, :x_factor, :y_factor, :color, :alpha, :text
-
-  attr_accessor :window
-
-  def alpha
-    color.alpha
-  end
-
-  def font
-    @font ||= Gosu::Font.new(window, Gosu::default_font_name, 20)
-  end
-
-  def color=(value)
-    @color = Gosu::Color.new(value.to_i(16))
-  end
-
-  def alpha=(value)
-    color.alpha = value.floor
-  end
-
-  def draw
-    font.draw text, x, y, z, x_factor, y_factor, color
-  end
-
-end
-
 class TitleTransitionScene < Metro::Scene
 
-  attr_reader :player
-
-  attr_reader :title
+  attr_reader :player, :title
 
   attr_reader :animations
 
@@ -59,20 +9,8 @@ class TitleTransitionScene < Metro::Scene
   end
 
   def prepare_transition_from(title_scene)
-    hero_logo = title_scene.view['logo']
-    @player = ScriptedPlayer.new
-    player.x = hero_logo['x']
-    player.y = hero_logo['y']
-
-    title_label = title_scene.view['title']
-    @title = Title.new
-    title.text = title_label['text']
-    title.x = title_label['x']
-    title.y = title_label['y']
-    title.z = title_label['z-order']
-    title.x_factor = title_label['x-factor']
-    title.y_factor = title_label['y-factor']
-    title.color = title_label['color']
+    @player = Player.new title_scene.view['logo']
+    @title = Title.new title_scene.view['title']
   end
 
   def show
@@ -118,6 +56,41 @@ class TitleTransitionScene < Metro::Scene
   def draw
     player.draw
     title.draw
+  end
+
+
+  class Player < Metro::Generic
+    def image
+      @image ||= Gosu::Image.new window, asset_path(path), false
+    end
+
+    def draw
+      image.draw_rot(x,y,1,angle)
+    end
+  end
+
+  class Title < Metro::Generic
+
+    def color=(value)
+      value = value.to_i(16) if value.is_a? String
+      @color = Gosu::Color.new(value)
+    end
+
+    def alpha
+      color.alpha
+    end
+
+    def alpha=(value)
+      color.alpha = value.floor
+    end
+
+    def font
+      @font ||= Gosu::Font.new(window, Gosu::default_font_name, 20)
+    end
+
+    def draw
+      font.draw text, x, y, z_order, x_factor, y_factor, color
+    end
   end
 
 end
