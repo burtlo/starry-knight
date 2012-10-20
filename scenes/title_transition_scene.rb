@@ -85,7 +85,7 @@ class TitleTransitionScene < Metro::Scene
   def add_player_animation
     final_x, final_y = Metro::Game.center
 
-    animation = ImplicitAnimation.new actor: player,
+    animation = Metro::ImplicitAnimation.new actor: player,
       to: { x: final_x, y: final_y, angle: -360.0 },
       interval: 80.0,
       easing: :ease_in,
@@ -99,7 +99,7 @@ class TitleTransitionScene < Metro::Scene
   end
 
   def add_title_fade_animation
-    animation = ImplicitAnimation.new actor: title,
+    animation = Metro::ImplicitAnimation.new actor: title,
       to: { alpha: 0 }, interval: 70.0
 
     animations.push animation
