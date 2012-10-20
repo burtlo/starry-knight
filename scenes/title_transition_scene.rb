@@ -2,12 +2,6 @@ class TitleTransitionScene < Metro::Scene
 
   attr_reader :player, :title
 
-  attr_reader :animations
-
-  def initialize
-    @animations = []
-  end
-
   def prepare_transition_from(title_scene)
     @player = Player.new title_scene.view['logo']
     @title = Title.new title_scene.view['title']
@@ -17,7 +11,31 @@ class TitleTransitionScene < Metro::Scene
     player.window = window
     title.window = window
     add_player_animation
+
     add_title_fade_animation
+  end
+
+  def events(e)
+    e.on_up Gosu::KbEscape do
+      transition_to :main
+    end
+  end
+
+  def update ; end
+
+  def draw
+    player.draw
+    title.draw
+  end
+
+  class Player < Metro::Generic
+    def image
+      @image ||= Gosu::Image.new window, asset_path(path), false
+    end
+
+    def draw
+      image.draw_rot(x,y,1,angle)
+    end
   end
 
   def add_player_animation
@@ -33,40 +51,7 @@ class TitleTransitionScene < Metro::Scene
       transition_to :main
     end
 
-    animations.push animation
-  end
-
-  def add_title_fade_animation
-    animation = Metro::ImplicitAnimation.new actor: title,
-      to: { alpha: 0 }, interval: 70
-
-    animations.push animation
-  end
-
-  def events(e)
-    e.on_up Gosu::KbEscape do
-      transition_to :main
-    end
-  end
-
-  def update
-    animations.each { |animation| animation.step! }
-  end
-
-  def draw
-    player.draw
-    title.draw
-  end
-
-
-  class Player < Metro::Generic
-    def image
-      @image ||= Gosu::Image.new window, asset_path(path), false
-    end
-
-    def draw
-      image.draw_rot(x,y,1,angle)
-    end
+    enqueue animation
   end
 
   class Title < Metro::Generic
@@ -91,6 +76,13 @@ class TitleTransitionScene < Metro::Scene
     def draw
       font.draw text, x, y, z_order, x_factor, y_factor, color
     end
+  end
+
+  def add_title_fade_animation
+    animation = Metro::ImplicitAnimation.new actor: title,
+      to: { alpha: 0 }, interval: 70
+
+    enqueue animation
   end
 
 end
