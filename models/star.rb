@@ -1,14 +1,23 @@
 class Star
-  attr_reader :x, :y, :animation, :color
+  attr_accessor :x, :y, :animation, :color, :window
 
-  def initialize(animation)
-    @animation = animation
+  def initialize
     @color = Gosu::Color.new(0xff000000)
     @color.red = rand(256-40) + 40
     @color.green = rand(256-40) + 40
     @color.blue = rand(256-40) + 40
-    @x = rand * Metro::Game.width
-    @y = rand * Metro::Game.height
+  end
+
+  def animation
+    @animation ||= Gosu::Image::load_tiles(window, asset_path("star.png"), 25, 25, false)
+  end
+
+  def x
+    @x ||= rand * Metro::Game.width
+  end
+
+  def y
+    @y ||= rand * Metro::Game.height
   end
 
   def draw

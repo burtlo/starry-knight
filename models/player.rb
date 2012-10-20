@@ -1,10 +1,16 @@
 class Player
 
-  attr_reader :x, :y, :angle, :image, :score
+  attr_reader :x, :y, :angle
+  attr_reader :score
+  attr_accessor :window
 
   def initialize(window)
+    @window = window
     @x = @y = @vel_x = @vel_y = @angle = @score = 0
-    @image = Gosu::Image.new window, asset_path("player.png"), false
+  end
+
+  def image
+    @image ||= Gosu::Image.new window, asset_path("player.png"), false
   end
 
   def warp(x,y)

@@ -1,19 +1,22 @@
 class StarGenerator
 
   attr_accessor :stars
-  attr_reader :star_animation
+
+  attr_reader :window
 
   def initialize(window)
-    @star_animation = Gosu::Image::load_tiles(window, asset_path("star.png"), 25, 25, false)
+    @window = window
     @stars = []
   end
 
   def generate
     if rand(100) < 5 and stars.size < 25
-      stars.push Star.new @star_animation
+      star = Star.new
+      star.window = window
+      stars.push star
     end
   end
-  
+
   def draw
     stars.each do |star|
       star.draw

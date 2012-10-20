@@ -8,6 +8,23 @@ title:
   x-factor: 3
   y-factor: 3
   color: 0x00ffff00
+star: &star_default
+  type: tiles
+  draw: false
+  x: 100
+  y: 400
+  path: "star.png"
+  width: 25
+  height: 25
+  tileable: false
+star2:
+  <<: *star_default
+  x: 455
+  y: 333
+star3:
+  <<: *star_default
+  x: 515
+  y: 40
 logo:
   type: image
   draw: false

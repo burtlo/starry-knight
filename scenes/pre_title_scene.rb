@@ -1,10 +1,35 @@
+class StarData < Metro::Generic
+  def animation
+    Gosu::Image::load_tiles(window, asset_path(path), width, height, tileable)
+  end
+end
+
 class PreTitleScene < Metro::Scene
 
-  actors :title, :player
+  actors :title, :player, :star, :star2, :star3
 
   def initialize
     @title = Title.new view['title']
     @player = Player.new view['logo']
+
+    star_data = StarData.new view['star']
+    @star = Star.new
+    @star.x = star_data.x
+    @star.y = star_data.y
+    # TODO not setting the path data to create the animation
+
+    star_data2 = StarData.new view['star2']
+    @star2 = Star.new
+    @star2.x = star_data2.x
+    @star2.y = star_data2.y
+    # TODO not setting the path data to create the animation
+
+    star_data3 = StarData.new view['star3']
+    @star3 = Star.new
+    @star3.x = star_data3.x
+    @star3.y = star_data3.y
+    # TODO not setting the path data to create the animation
+
   end
 
   def show
@@ -37,7 +62,7 @@ class PreTitleScene < Metro::Scene
 
       full_fade_in = Metro::ImplicitAnimation.new actor: player,
         to: { alpha: 255 },
-        interval: 80,
+        interval: 40,
         context: self
 
       full_fade_in.on_complete do
