@@ -1,0 +1,19 @@
+title:
+  type: label
+  draw: false
+  text: STARRY KNIGHT
+  x: 30
+  y: 50
+  z-order: 4
+  x-factor: 3
+  y-factor: 3
+  color: 0x00ffff00
+logo:
+  type: image
+  draw: false
+  x: 540
+  y: 380
+  z-order: 4
+  angle: 0
+  path: "player.png"
+  color: 0x00ffffff
