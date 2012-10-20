@@ -1,11 +1,14 @@
 class MainScene < Metro::Scene
 
-  attr_reader :player, :star_generator
+  actors :player, :star_generator
 
+  def initialize
+    @player = Player.new
+    @star_generator = StarGenerator.new
+  end
+  
   def show
-    @player = Player.new window
     player.warp *Metro::Game.center
-    @star_generator = StarGenerator.new(window)
   end
 
   def events(e)
@@ -32,9 +35,6 @@ class MainScene < Metro::Scene
     star_generator.generate
   end
 
-  def draw
-    player.draw
-    star_generator.draw
-  end
+  def draw ; end
 
 end

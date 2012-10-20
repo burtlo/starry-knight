@@ -4,8 +4,7 @@ class Player
   attr_reader :score
   attr_accessor :window
 
-  def initialize(window)
-    @window = window
+  def initialize
     @x = @y = @vel_x = @vel_y = @angle = @score = 0
   end
 

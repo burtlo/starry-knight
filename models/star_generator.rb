@@ -2,10 +2,9 @@ class StarGenerator
 
   attr_accessor :stars
 
-  attr_reader :window
+  attr_accessor :window
 
-  def initialize(window)
-    @window = window
+  def initialize
     @stars = []
   end
 
