@@ -1,5 +1,5 @@
 
 resolution 640, 480
-debug true
+# debug true
 
 first_scene :title
