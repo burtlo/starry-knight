@@ -1,6 +1,6 @@
 class TitleTransitionScene < Metro::Scene
 
-  attr_reader :player, :title
+  actors :player, :title
 
   def prepare_transition_from(title_scene)
     @player = Player.new title_scene.view['logo']
@@ -8,10 +8,7 @@ class TitleTransitionScene < Metro::Scene
   end
 
   def show
-    player.window = window
-    title.window = window
     add_player_animation
-
     add_title_fade_animation
   end
 
@@ -23,10 +20,7 @@ class TitleTransitionScene < Metro::Scene
 
   def update ; end
 
-  def draw
-    player.draw
-    title.draw
-  end
+  def draw ; end
 
   class Player < Metro::Generic
     def image
