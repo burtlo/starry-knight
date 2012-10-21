@@ -23,6 +23,6 @@
     "y"       : 200,
     "z-order" : 5,
     "padding" : 40,
-    "color"   : "0xff777777", "highlight-color" : "0xffffffff",
-    "options" : [ "Start Game", "Exit" ] }
+    "color"   : "0xff777777",
+    "highlight-color" : "0xffffffff" }
 }
