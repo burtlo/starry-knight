@@ -1,7 +1,7 @@
 class TitleTransitionScene < Metro::Scene
 
-  draw :logo, from: :previous_scene
-  draw :title, from: :previous_scene
+  draw :logo, model: 'metro::models::image', from: :previous_scene
+  draw :title, model: 'metro::models::label', from: :previous_scene
 
   def show
     add_player_animation

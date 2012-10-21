@@ -15,33 +15,40 @@ bundle exec metro
 
 This is a near duplicate of the tutorial that you create at the end of the [ruby tutorial for gosu](https://github.com/jlnr/gosu/wiki/Ruby-Tutorial). However, if you look at the structure of this project you will find distinct differences and that is because it is using [metro](https://github.com/burtlo/metro) to take care of a lot of the tedious coding tasks.
 
+> NOTE: This state of the game, as is the Metro library, under active development, so it is possible that some of the information within this README is inaccurate and has not kept pace with the latest developments.
+
 ### Layout
 
 The root file is the `metro` file which is a Ruby DSL that allows you to specify detail about the game.
 
-> At the moment the options are limited to the `resolution` and the `first_scene`
-
 ```ruby
+name "Starry Knight"
 resolution 640, 480
-
 first_scene :title
 ```
 
+Here you can set the name of the game, the `resolution width, height`, and the scene to start the game.
+
 #### Scenes
 
-Scenes are different screens or stages within a game. Within this small game, it represents the title screen and the main game screen. They are all located within the scenes directory and are subclasses of Scene.
+Scenes are different screens or stages within a game. Within this small game, it represents the "pre-title" animation, the title screen, the "title to game" animation. They are all located within the scenes directory and are subclasses of Scene.
+
+Let's look at a few of the characteristics of the scenes:
 
 #### Title Scene
+
+The title scene is by far the simpliest to comprehend of the scenes. This is where the player can choose to start a game or exit.
+
+![Title Scene](http://cloud.github.com/downloads/burtlo/starry-knight/title-screen-10-18-12.png)
+
 
 ```ruby
 class TitleScene < Metro::Scene
 
-  def show
-    window.caption = "Starry Knight"
-  end
+  draws :title, :logo, :menu
 
   def start_game
-    transition_to :main
+    transition_to :title_transition
   end
 
   def exit
@@ -51,40 +58,56 @@ class TitleScene < Metro::Scene
 end
 ```
 
-The `TitleScene` is a subclass of the `Metro::Scene`. There you are able to access the traditional [window](https://github.com/jlnr/gosu/blob/master/Gosu/Window.hpp) instance to set the caption when the scene is shown (by way of the `show` method).
+The `TitleScene` is a subclass of the `Metro::Scene`.
 
-A reference to `window` is also used to close the window when `exit` is called. `start_game` also has a special method `transitioned_to` which allows transition from one scene to the next scene. However, it is not immediately clear how `start_game` or `exit` are even called. To understand more we need to look at the view defined for Title Scene.
+**draws** is a special method tells the scene you want to draw the 'title', 'logo', and the 'menu' throughout the scene. What those are is not explicitly clear at this moment and will require us to look at the game's models and views.
 
-#### Views
+**start_game** uses a method called `transition_to` which is another special method to move from one scene to another scene. When the start_game method is called the game will move to the 'TitleTransitionScene'. All scenes have names and by default the name is based on the class name of the scene, though it can be overridden if desired.
 
-A scene may have a view defined for it. If one is defined, by default it should match the prefix of the scene name (e.g. TitleScene : title.json). A template can be defined in YAML or JSON format.
+**exit** references `window`, which is how you gain acess to the [Gosu::Window ](https://github.com/jlnr/gosu/blob/master/Gosu/Window.hpp) instance. Which may be necessary from time to time.
 
 #### Title View (title.json)
+
+Every scene has a view associated with it and by default it is based on the name of the scene, though that too can be overriden if desired. All views are located in the views directory and defined in either YAML or JSON format.
+
+The title view is an example of a view defined in JSON:
 
 ```json
 {
   "title" : {
-    "type"    : "label",
-    "text"    : "STARRY KNIGHT",
-    "x"       : 20, "y" : 20, "z-order" : 4,
-    "x-factor": 3, "y-factor": 3,
-    "color"   : "0xffffff00" },
+    "model"    : "metro::models::label"
+    "text"     : "STARRY KNIGHT",
+    "x"        : 30,
+    "y"        : 50,
+    "z-order"  : 4,
+    "x-factor" : 3,
+    "y-factor" : 3,
+    "color"    : "0xffffff00" },
+
+  "logo" : {
+    "model"   : "metro::models::image",
+    "x"       : 540,
+    "y"       : 80,
+    "z-order" : 4,
+    "color"   : "0xffffffff",
+    "path"    : "player.png" },
 
   "menu" : {
-    "type" : "select",
-    "x" : 100, "y" : 150, "z-order" : 5,
+    "model"   : "metro::models::menu",
+    "x"       : 260,
+    "y"       : 200,
+    "z-order" : 5,
     "padding" : 40,
-    "color"   : "0xffffffff", "selected-color" : "0xffff0000",
+    "color"   : "0xff777777", "highlight-color" : "0xffffffff",
     "options" : [ "Start Game", "Exit" ] }
 }
 ```
 
-![Title Scene](http://cloud.github.com/downloads/burtlo/starry-knight/title-screen-10-18-12.png)
+Metro tries to make it easier to build common output and interface components. Defined here is the title, logo and menu. Each element has some information about placement, z-ordering and colors.
 
-Metro tries to make it easier to build common output and interface components. Here the title screen has a title label and menu of options. Each element has some information about placement, z-ordering and colors. As always, it is good to have this display logic removed from the codebase to allow for it to easily be manipulated and changed.
+The Scene's `draw` method specified these elements. The scene takes care of loading all the view related information from this file and then sets that data on a model. By default the model that is used is based on the name (e.g. 'title', 'logo', 'menu'). However, a model name can be provided (e.g. 'menu'). Metro even provides some simple models to assist with common tasks for creating labels, images, and menus.
 
-The `select` type generates a menu which has two options: 'Start Game' and 'Exit'. The arrow keys and gamepad keys allow you navigate between the choices and the enter key or gamepad 0 key will select the currently highlighted one. The names of the options are mapped to the methods that we saw previously (downcasing and replacing all spaces with undescores). This convention makes it easy to make a simple menu of options and listen for the events from each of the events.
-
+The `metro::models::menu` model generates a menu which has two options: 'Start Game' and 'Exit'. The arrow keys and gamepad keys allow you navigate between the choices and the enter key or gamepad-0 key will select the currently highlighted one. The names of the options are mapped to the methods that we saw previously (downcasing and replacing all spaces with undescores). This convention makes it easy to make a simple menu of options and listen for the events from each of the events.
 
 #### Main Scene
 
@@ -93,28 +116,26 @@ The `select` type generates a menu which has two options: 'Start Game' and 'Exit
 ```ruby
 class MainScene < Metro::Scene
 
-  attr_reader :player, :star_generator
+  draws :player, :star_generator, :score
 
   def show
-    @player = Player.new window
     player.warp *Metro::Game.center
-    @star_generator = StarGenerator.new(window)
   end
 
   def events(e)
-    e.on_hold Gosu::KbLeft, Gosu::GpLeft do |scene|
+    e.on_hold Gosu::KbLeft, Gosu::GpLeft do
       player.turn_left
     end
 
-    e.on_hold Gosu::KbRight, Gosu::GpRight do |scene|
+    e.on_hold Gosu::KbRight, Gosu::GpRight do
       player.turn_right
     end
 
-    e.on_hold Gosu::KbUp, Gosu::GpButton0 do |scene|
+    e.on_hold Gosu::KbUp, Gosu::GpButton0 do
       player.accelerate
     end
 
-    e.on_hold Gosu::KbEscape do |scene|
+    e.on_up Gosu::KbEscape do
       transition_to :title
     end
   end
@@ -125,14 +146,29 @@ class MainScene < Metro::Scene
     star_generator.generate
   end
 
-  def draw
-    player.draw
-    star_generator.draw
-  end
+  def draw ; end
 
 end
 ```
 
-This main scene is the a near copy of the results from completing the [ruby tutorial for gosu](https://github.com/jlnr/gosu/wiki/Ruby-Tutorial). The largest difference is the `events` method. This method receives an `EventRelay` which allows you to easily prescribe keystrokes and gamepad events (on_up, on_down, on_hold) to an action.
+For this scene we want to draw a player, a star generator, and the player's score. Opening the Main View (views/main.yml), you may notice only the score is defined.
 
-This makes more declarative statements about the events you are interested in receiving, unifies all of the events (button_up, button_down, and button_down?) into similar declarations, and removes the excess noise that usually appears in `update`.
+```yaml
+score:
+  model: "metro::models::label"
+  text: "Score: #{player.score}"
+  x: 10
+  y: 10
+  z-order: 5
+  color: 0xffffff00
+```
+
+That is because the player and the star generator are drawn by their models which are defined in the models directory.
+
+**show** is the first event that the window sends to the scene. There we set the position of player to the center of the screen.
+
+**events** is where we define all the user input events that we want to handle. This method is passed the `EventRelay` for the scene which you can prescribe keystrokes and gamepad events (on_up, on_down, on_hold) to an action.
+
+**update** is called on every tick of the game loop. Here we update the position of the player, see if they are close enough to capture the stars, and generate any new stars.
+
+**draw** is called after update on every tick. Though no specific drawing needs to be done as we have already registered to draw our player, star generator, and score label.

@@ -2,7 +2,6 @@ class Player < Metro::Model
 
   attr_reader :x, :y, :angle
   attr_reader :score
-  attr_accessor :window
 
   def initialize
     @x = @y = @vel_x = @vel_y = @angle = @score = 0

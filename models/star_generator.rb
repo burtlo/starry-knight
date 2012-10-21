@@ -2,8 +2,6 @@ class StarGenerator < Metro::Model
 
   attr_accessor :stars
 
-  attr_accessor :window
-
   def initialize
     @stars = []
   end

@@ -1,5 +1,6 @@
 class Star < Metro::Model
-  attr_accessor :x, :y, :animation, :color, :window
+
+  attr_accessor :x, :y, :animation
 
   def initialize
     @color = Gosu::Color.new(0xff000000)
