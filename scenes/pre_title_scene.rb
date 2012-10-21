@@ -1,20 +1,3 @@
-#
-# # Will generate and draw a generic object based off the view data
-# # The view data can specify the model that is used, otherwise it
-# # will build an appropriate generic object
-# draw :title
-#
-# # Explicitly draw call to setup a drawing of a title.
-# draw :title, Title
-#
-# # Explicitly draw call to setup a drawing of a title with some setup
-# draw :title do
-#   title = Title.new view['title']
-#   # ... other setup ...
-#   title
-# end
-#
-#
 class PreTitleScene < Metro::Scene
 
   draws :title, :logo, :star, :star2, :star3
