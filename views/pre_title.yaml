@@ -1,6 +1,4 @@
 title:
-  type: label
-  draw: false
   text: STARRY KNIGHT
   x: 30
   y: 50
@@ -8,9 +6,15 @@ title:
   x-factor: 3
   y-factor: 3
   color: 0x00ffff00
+logo:
+  x: 540
+  y: 380
+  z-order: 4
+  angle: 0
+  path: "player.png"
+  color: 0x00ffffff
 star: &star_default
-  type: tiles
-  draw: false
+  model: star
   x: 100
   y: 400
   path: "star.png"
@@ -25,12 +29,3 @@ star3:
   <<: *star_default
   x: 515
   y: 40
-logo:
-  type: image
-  draw: false
-  x: 540
-  y: 380
-  z-order: 4
-  angle: 0
-  path: "player.png"
-  color: 0x00ffffff

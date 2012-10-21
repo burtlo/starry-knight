@@ -1,5 +1,5 @@
 score:
-  type: label
+  model: "metro::models::label"
   text: "Score: #{player.score}"
   x: 10
   y: 10

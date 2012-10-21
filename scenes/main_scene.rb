@@ -1,12 +1,7 @@
 class MainScene < Metro::Scene
 
-  actors :player, :star_generator
+  draws :player, :star_generator, :score
 
-  def initialize
-    @player = Player.new
-    @star_generator = StarGenerator.new
-  end
-  
   def show
     player.warp *Metro::Game.center
   end

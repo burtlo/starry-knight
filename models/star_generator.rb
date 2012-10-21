@@ -1,4 +1,4 @@
-class StarGenerator
+class StarGenerator < Metro::Model
 
   attr_accessor :stars
 

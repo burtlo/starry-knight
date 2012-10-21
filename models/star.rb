@@ -1,4 +1,4 @@
-class Star
+class Star < Metro::Model
   attr_accessor :x, :y, :animation, :color, :window
 
   def initialize

@@ -1,6 +1,5 @@
 {
   "title" : {
-    "type"     : "label",
     "text"     : "STARRY KNIGHT",
     "x"        : 30,
     "y"        : 50,
@@ -10,15 +9,15 @@
     "color"    : "0xffffff00" },
 
   "logo" : {
-    "type"    : "image",
     "x"       : 540,
     "y"       : 80,
     "z-order" : 4,
     "angle"   : 0,
+    "color"   : "0xffffffff",
     "path"    : "player.png" },
 
   "menu" : {
-    "type"    : "select",
+    "model"   : "metro::models::select",
     "x"       : 260,
     "y"       : 200,
     "z-order" : 5,

@@ -1,5 +1,7 @@
 class TitleScene < Metro::Scene
 
+  draws :title, :logo, :menu
+
   def show
     window.caption = "Starry Knight"
   end

@@ -1,4 +1,4 @@
-class Player
+class Player < Metro::Model
 
   attr_reader :x, :y, :angle
   attr_reader :score
