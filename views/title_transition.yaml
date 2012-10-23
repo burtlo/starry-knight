@@ -1,6 +1,6 @@
 debug:
-  model: label
-  text: "Player: #{player.x.to_f.floor} #{player.y.to_f.floor} - #{player.image.height} #{player.image.width}"
+  model: "metro::models::label"
+  text: "Player: #{logo.x.to_f.floor} #{logo.y.to_f.floor}"
   x: 10
   y: 10
   z-order: 5
