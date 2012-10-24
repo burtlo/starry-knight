@@ -1,6 +1,9 @@
 
 name "Starry Knight"
 
+author "Franklin Webber"
+contact "frank@franklinwebber.com"
+
 resolution 640, 480
 # debug true
 
