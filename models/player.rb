@@ -3,6 +3,18 @@ class Player < Metro::Model
   attr_reader :x, :y, :angle
   attr_reader :score
 
+  event :on_hold, Gosu::KbLeft, Gosu::GpLeft do
+    turn_left
+  end
+  
+  event :on_hold, Gosu::KbRight, Gosu::GpRight do
+    turn_right
+  end
+
+  event :on_hold, Gosu::KbUp, Gosu::GpButton0 do
+    accelerate
+  end
+
   def initialize
     @x = @y = @vel_x = @vel_y = @angle = @score = 0
   end
