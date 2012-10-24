@@ -26,11 +26,11 @@
     "color"   : "0xff777777",
     "highlight-color" : "0xffffffff" },
     
-    "galaxy": {
-      "model": "metro::models::image",
-      "path": "galaxy.jpeg",
-      "x": 320,
-      "y": 240,
-      "z-order": 0,
-      "color": "0x55ffffff" }
+  "galaxy": {
+    "model": "metro::models::image",
+    "path": "galaxy.jpeg",
+    "x": 320,
+    "y": 240,
+    "z-order": 0,
+    "color": "0x00ffffff" }
 }
