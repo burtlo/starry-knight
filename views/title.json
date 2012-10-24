@@ -22,7 +22,6 @@
     "x"       : 260,
     "y"       : 200,
     "z-order" : 5,
-    "padding" : 40,
     "color"   : "#777777",
     "highlight-color" : "#FFFFFF" },
     
