@@ -6,14 +6,14 @@ title:
   z-order: 4
   x-factor: 3
   y-factor: 3
-  color: 0x00ffff00
+  color: "rgba(255,255,0,0.0)"
 logo:
   model: metro::models::image
   x: 540
   y: 380
   z-order: 4
   path: "player.png"
-  color: 0x00ffffff
+  color: "rgba(255,255,255,0.0)"
 star: &star_default
   model: star
   x: 100

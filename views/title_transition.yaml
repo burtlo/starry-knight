@@ -4,4 +4,4 @@ debug:
   x: 10
   y: 10
   z-order: 5
-  color: 0xffffff00
+  color: "rgba(255,255,0,1.0)"

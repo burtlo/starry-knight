@@ -7,14 +7,14 @@
     "z-order"  : 4,
     "x-factor" : 3,
     "y-factor" : 3,
-    "color"    : "0xffffff00" },
+    "color"    : "#ffff00" },
 
   "logo" : {
     "model"   : "metro::models::image",
     "x"       : 540,
     "y"       : 80,
     "z-order" : 4,
-    "color"   : "0xffffffff",
+    "color"   : "rgba(255,255,255,1.0)",
     "path"    : "player.png" },
 
   "menu" : {
@@ -23,8 +23,8 @@
     "y"       : 200,
     "z-order" : 5,
     "padding" : 40,
-    "color"   : "0xff777777",
-    "highlight-color" : "0xffffffff" },
+    "color"   : "#777777",
+    "highlight-color" : "#FFFFFF" },
     
   "galaxy": {
     "model": "metro::models::image",
@@ -32,5 +32,5 @@
     "x": 320,
     "y": 240,
     "z-order": 0,
-    "color": "0x00ffffff" }
+    "color": "rgba(255,255,255,0.0)" }
 }
