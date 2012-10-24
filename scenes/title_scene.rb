@@ -1,6 +1,6 @@
 class TitleScene < Metro::Scene
 
-  draws :title, :logo
+  draws :title, :logo, :galaxy
 
   draw :menu, options: [ 'Start Game', 'Exit' ]
 

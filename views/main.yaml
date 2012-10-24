@@ -5,3 +5,10 @@ score:
   y: 10
   z-order: 5
   color: 0xffffff00
+galaxy:
+  model: "metro::models::image"
+  path: "galaxy.jpeg"
+  x: 320
+  y: 240
+  z-order: 0
+  color: 0x55ffffff

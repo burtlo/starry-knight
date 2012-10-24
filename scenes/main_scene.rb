@@ -1,9 +1,11 @@
 class MainScene < Metro::Scene
 
-  draws :player, :star_generator, :score
+  draws :player, :star_generator, :score, :galaxy
 
   def show
     player.warp *Metro::Game.center
+    
+    animate actor: galaxy, to: { alpha: 160 }, interval: 60
   end
 
   def events(e)

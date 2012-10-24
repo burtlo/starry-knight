@@ -2,7 +2,8 @@ class TitleTransitionScene < Metro::Scene
 
   draw :logo, model: 'metro::models::image', from: :previous_scene
   draw :title, model: 'metro::models::label', from: :previous_scene
-
+  draw :galaxy, model: 'metro::models::image', from: :previous_scene
+  
   def show
     final_x, final_y = Metro::Game.center
     
