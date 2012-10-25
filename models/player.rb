@@ -1,12 +1,11 @@
 class Player < Metro::Model
 
   attr_reader :x, :y, :angle
-  attr_reader :score
 
   event :on_hold, Gosu::KbLeft, Gosu::GpLeft do
     turn_left
   end
-  
+
   event :on_hold, Gosu::KbRight, Gosu::GpRight do
     turn_right
   end
@@ -16,7 +15,7 @@ class Player < Metro::Model
   end
 
   def initialize
-    @x = @y = @vel_x = @vel_y = @angle = @score = 0
+    @x = @y = @vel_x = @vel_y = @angle = 0
   end
 
   def image
@@ -52,7 +51,7 @@ class Player < Metro::Model
 
   def collect_stars(stars)
     if stars.reject! {|star| Gosu::distance(x, y, star.x, star.y) < 35 }
-      @score += 1
+      notification :star_collected
     end
   end
 

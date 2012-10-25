@@ -1,10 +1,3 @@
-score:
-  model: "metro::models::label"
-  text: "Score: #{player.score}"
-  x: 10
-  y: 10
-  z-order: 5
-  color: "rgb(255,255,255)"
 galaxy:
   model: "metro::models::image"
   path: "galaxy.jpeg"
