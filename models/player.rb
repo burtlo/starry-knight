@@ -56,7 +56,7 @@ class Player < Metro::Model
   end
 
   def draw
-    image.draw_rot(x,y,1,angle)
+    image.draw_rot(x,y,2,angle)
   end
 
 end

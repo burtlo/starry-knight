@@ -2,7 +2,7 @@ class MainScene < Metro::Scene
 
   draws :player, :star_generator, :score_board, :galaxy
 
-  animate actor: :galaxy, to: { alpha: 160 }, interval: 60
+  animate :galaxy, to: { alpha: 160 }, interval: 1.seconds
 
   event :on_up, Gosu::KbEscape do
     transition_to :title

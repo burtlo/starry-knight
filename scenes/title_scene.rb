@@ -4,7 +4,7 @@ class TitleScene < Metro::Scene
 
   draw :menu, options: [ 'Start Game', 'Exit' ]
 
-  animate actor: :galaxy, to: { alpha: 100 }, interval: 60
+  animate :galaxy, to: { alpha: 100 }, interval: 1.second
 
   def start_game
     transition_to :title_transition
