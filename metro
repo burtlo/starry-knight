@@ -3,8 +3,8 @@ name "Starry Knight"
 
 author "Franklin Webber"
 contact "frank@franklinwebber.com"
+website "www.franklinwebber.com"
 
 resolution 640, 480
-# debug true
 
 first_scene :pre_title

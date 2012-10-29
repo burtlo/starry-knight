@@ -4,12 +4,12 @@ class MainScene < Metro::Scene
 
   animate :galaxy, to: { alpha: 160 }, interval: 1.seconds
 
-  event :on_up, Gosu::KbEscape do
+  event :on_up, KbEscape do
     transition_to :title
   end
 
   def show
-    player.warp *Metro::Game.center
+    player.warp *Game.center
   end
 
   def update
@@ -17,7 +17,5 @@ class MainScene < Metro::Scene
     player.collect_stars star_generator.stars
     star_generator.generate
   end
-
-  def draw ; end
 
 end

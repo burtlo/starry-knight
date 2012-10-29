@@ -10,12 +10,8 @@ class PreTitleScene < Metro::Scene
 
   animate :title, to: { alpha: 255 }, interval: 3.seconds
 
-  event :on_up, Gosu::KbEscape do
+  event :on_up, KbEscape do
     transition_to :title
   end
-
-  def update ; end
-
-  def draw ; end
 
 end

@@ -14,12 +14,8 @@ class TitleTransitionScene < Metro::Scene
     animate :title, to: { alpha: 0 }, interval: 1.second
   end
 
-  event :on_up, Gosu::KbEscape do
+  event :on_up, KbEscape do
     transition_to :main
   end
-
-  def update ; end
-
-  def draw ; end
 
 end
