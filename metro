@@ -7,4 +7,4 @@ website "www.franklinwebber.com"
 
 resolution 640, 480
 
-first_scene :pre_title
+first_scene :title
