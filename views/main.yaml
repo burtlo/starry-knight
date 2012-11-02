@@ -1,7 +1,11 @@
+---
+player: {}
+star_generator: {}
+score_board: {}
 galaxy:
-  model: "metro::models::image"
-  path: "galaxy.jpeg"
-  x: 320
-  y: 240
-  z-order: 0
-  color: "rgba(255,255,255,0.4)" 
+  model: metro::models::image
+  path: galaxy.jpeg
+  x: 75
+  y: 410
+  z_order: 0
+  color: rgba(255,255,255,0.4)

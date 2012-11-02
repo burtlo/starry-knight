@@ -15,7 +15,7 @@ class TitleTransitionScene < Metro::Scene
   end
 
   event :on_up, KbEscape do
-    transition_to :main
+    transition_to :main, with: :fade
   end
 
 end

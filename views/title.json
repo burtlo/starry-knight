@@ -1,35 +1,40 @@
 {
-  "title" : {
-    "model"    : "metro::models::label",
-    "text"     : "STARRY KNIGHT",
-    "x"        : 30,
-    "y"        : 50,
-    "z-order"  : 4,
-    "x-factor" : 3,
-    "y-factor" : 3,
-    "color"    : "#ffff00" },
-
-  "logo" : {
-    "model"   : "metro::models::image",
-    "x"       : 540,
-    "y"       : 80,
-    "z-order" : 4,
-    "color"   : "rgba(255,255,255,1.0)",
-    "path"    : "player.png" },
-
-  "menu" : {
-    "model"   : "metro::models::menu",
-    "x"       : 260,
-    "y"       : 200,
-    "z-order" : 5,
-    "color"   : "#777777",
-    "highlight-color" : "#FFFFFF" },
-    
+  "title": {
+    "model": "metro::models::label",
+    "text": "STARRY KNIGHT",
+    "x": 28,
+    "y": 129,
+    "z_order": 4,
+    "x_factor": 3,
+    "y_factor": 3,
+    "color": "rgba(255,255,0,1.0)"
+  },
+  "logo": {
+    "model": "metro::models::image",
+    "x": 536,
+    "y": 147,
+    "z_order": 4,
+    "color": "rgba(255,255,255,1.0)",
+    "path": "player.png"
+  },
   "galaxy": {
     "model": "metro::models::image",
     "path": "galaxy.jpeg",
-    "x": 320,
-    "y": 240,
-    "z-order": 0,
-    "color": "rgba(255,255,255,0.0)" }
+    "x": 75,
+    "y": 410,
+    "z_order": 0,
+    "color": "rgba(255,255,255,0.4)"
+  },
+  "menu": {
+    "options": [
+      "Start Game",
+      "Exit"
+    ],
+    "model": "metro::models::menu",
+    "x": 465,
+    "y": 324,
+    "z_order": 5,
+    "color": "rgba(119,119,119,0.0)",
+    "highlight_color": "rgba(255,255,255,0.0)"
+  }
 }
