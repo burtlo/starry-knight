@@ -1,4 +1,4 @@
-class MainScene < Metro::Scene
+class MainScene < GameScene
 
   draws :player, :star_generator, :score_board, :galaxy
 
@@ -13,11 +13,6 @@ class MainScene < Metro::Scene
     # enable_edit_mode
     log.debug "Going to edit mode"
     transition_to self, with: :edit
-  end
-
-  event :on_up, KbR do
-    Metro.reload!
-    transition_to self.class.scene_name
   end
 
   def show

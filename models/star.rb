@@ -14,11 +14,11 @@ class Star < Metro::Model
   end
 
   def x
-    @x ||= rand * Metro::Game.width
+    @x ||= rand * Game.width
   end
 
   def y
-    @y ||= rand * Metro::Game.height
+    @y ||= rand * Game.height
   end
 
   def draw

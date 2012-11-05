@@ -1,4 +1,4 @@
-class TitleScene < Metro::Scene
+class TitleScene < GameScene
 
   draws :title, :logo, :galaxy
 
@@ -21,11 +21,6 @@ class TitleScene < Metro::Scene
     # enable_edit_mode
     log.debug "Going to edit mode"
     transition_to self, with: :edit
-  end
-
-  event :on_up, KbR do |event|
-    Metro.reload!
-    transition_to self.class.scene_name
   end
 
   event :on_up, KbL do |event|

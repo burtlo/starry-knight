@@ -1,4 +1,4 @@
-class PreTitleScene < Metro::Scene
+class PreTitleScene < GameScene
 
   draws :title, :logo, :star, :star2, :star3, :galaxy
 
