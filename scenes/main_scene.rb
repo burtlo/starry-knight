@@ -16,13 +16,11 @@ class MainScene < GameScene
   end
 
   def show
-    player.warp *Game.center
+    player.warp Game.center
   end
 
   def update
-    player.move
     player.collect_stars star_generator.stars
-    star_generator.generate
   end
 
 end

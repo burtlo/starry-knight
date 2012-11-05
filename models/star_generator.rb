@@ -6,7 +6,7 @@ class StarGenerator < Metro::Model
     @stars = []
   end
 
-  def generate
+  def update
     if rand(100) < 5 and stars.size < 25
       star = Star.new
       star.window = window

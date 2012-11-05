@@ -5,9 +5,7 @@ class TitleTransitionScene < GameScene
   draw :galaxy, model: 'metro::models::image', from: :previous_scene
   
   def show
-    final_x, final_y = Game.center
-    
-    animate :logo, to: { x: final_x, y: final_y, angle: -360.0 }, interval: 80, easing: :ease_in do
+    animate :logo, to: { x: Game.center.x, y: Game.center.y, angle: -360.0 }, interval: 80, easing: :ease_in do
       transition_to :main
     end
 

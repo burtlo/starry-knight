@@ -22,8 +22,8 @@ class Player < Metro::Model
     @image ||= Gosu::Image.new window, asset_path("player.png"), false
   end
 
-  def warp(x,y)
-    @x, @y = x, y
+  def warp(point)
+    @x, @y = point.x, point.y
   end
 
   def turn_left
@@ -39,7 +39,7 @@ class Player < Metro::Model
     @vel_y += Gosu::offset_y(angle,0.5)
   end
 
-  def move
+  def update
     @x += @vel_x
     @y += @vel_y
     @x %= Game.width
