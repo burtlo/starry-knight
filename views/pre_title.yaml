@@ -3,25 +3,22 @@ title:
   text: STARRY KNIGHT
   x: 28
   y: 129
+  font:
+    size: 60
   z-order: 4
-  x-factor: 3
-  y-factor: 3
   color: "rgba(255,255,0,0.0)"
 logo:
   model: metro::models::image
   x: 536
   y: 380
   z-order: 4
-  path: "player.png"
+  image: "player.png"
   color: "rgba(255,255,255,0.0)"
 star: &star_default
   model: star
   x: 100
   y: 80
-  path: "star.png"
-  width: 25
-  height: 25
-  tileable: false
+  image: "star.png"
 star2:
   <<: *star_default
   x: 455
@@ -32,7 +29,7 @@ star3:
   y: 40
 galaxy:
   model: metro::models::image
-  path: galaxy.jpeg
+  image: galaxy.jpeg
   x: 75
   y: 410
   z_order: 0

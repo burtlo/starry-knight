@@ -4,9 +4,8 @@
     "text": "STARRY KNIGHT",
     "x": 28,
     "y": 129,
+    "font": { "size" : 60 },
     "z_order": 4,
-    "x_factor": 3,
-    "y_factor": 3,
     "color": "rgba(255,255,0,1.0)"
   },
   "logo": {
@@ -15,11 +14,11 @@
     "y": 147,
     "z_order": 4,
     "color": "rgba(255,255,255,1.0)",
-    "path": "player.png"
+    "image": "player.png"
   },
   "galaxy": {
     "model": "metro::models::image",
-    "path": "galaxy.jpeg",
+    "image": "galaxy.jpeg",
     "x": 75,
     "y": 410,
     "z_order": 0,
@@ -34,7 +33,7 @@
     "x": 465,
     "y": 324,
     "z_order": 5,
-    "color": "rgba(119,119,119,0.0)",
-    "highlight_color": "rgba(255,255,255,0.0)"
+    "unselected_color": "rgba(119,119,119,0.0)",
+    "selected_color": "rgba(255,255,255,0.0)"
   }
 }

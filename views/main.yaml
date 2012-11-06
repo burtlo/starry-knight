@@ -1,10 +1,11 @@
 ---
-player: {}
+player:
+  image: player.png
 star_generator: {}
 score_board: {}
 galaxy:
   model: metro::models::image
-  path: galaxy.jpeg
+  image: galaxy.jpeg
   x: 75
   y: 410
   z_order: 0

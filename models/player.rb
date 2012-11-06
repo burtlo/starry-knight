@@ -1,6 +1,10 @@
 class Player < Metro::Model
 
-  attr_reader :x, :y, :angle
+  property :position
+  property :angle, type: :numeric, default: 0.0
+  property :vel_x, type: :numeric, default: 0.0
+  property :vel_y, type: :numeric, default: 0.0
+  property :image
 
   event :on_hold, Gosu::KbLeft, Gosu::GpLeft do
     turn_left
@@ -14,39 +18,32 @@ class Player < Metro::Model
     accelerate
   end
 
-  def initialize
-    @x = @y = @vel_x = @vel_y = @angle = 0
-  end
-
-  def image
-    @image ||= Gosu::Image.new window, asset_path("player.png"), false
-  end
 
   def warp(point)
-    @x, @y = point.x, point.y
+    self.position = point
   end
 
   def turn_left
-    @angle -= 4.5
+    self.angle -= 4.5
   end
 
   def turn_right
-    @angle += 4.5
+    self.angle += 4.5
   end
 
   def accelerate
-    @vel_x += Gosu::offset_x(angle,0.5)
-    @vel_y += Gosu::offset_y(angle,0.5)
+    self.vel_x += Gosu::offset_x(angle,0.5)
+    self.vel_y += Gosu::offset_y(angle,0.5)
   end
 
   def update
-    @x += @vel_x
-    @y += @vel_y
-    @x %= Game.width
-    @y %= Game.height
+    self.x += vel_x
+    self.y += vel_y
+    self.x %= Game.width
+    self.y %= Game.height
 
-    @vel_x *= 0.95
-    @vel_y *= 0.95
+    self.vel_x *= 0.95
+    self.vel_y *= 0.95
   end
 
   def collect_stars(stars)

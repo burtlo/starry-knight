@@ -1,15 +1,15 @@
 class ScoreBoard < Metro::Model
 
+  property :position, default: Metro::Point.new(10,10)
+  property :scale, default: Metro::Scale.new(1.0,1.0)
+  
+  property :color, default: "rgb(255,255,0)"
+
+  property :font, default: { size: 20 }
+
   def after_initialize
-    @x = 10
-    @y = 10
-    @z_order = 5
-    @x_factor = @y_factor = 1.0
-    @color = Gosu::Color.new 0xffffff00
     @score = Hash.new(0)
   end
-
-  attr_accessor :x, :y, :z_order, :x_factor, :y_factor, :color
 
   attr_reader :score
 
@@ -30,10 +30,6 @@ class ScoreBoard < Metro::Model
   # 
   def player_label(player,index)
     "Score:"
-  end
-
-  def font
-    @font ||= Gosu::Font.new(window, Gosu::default_font_name, 20)
   end
 
   def draw

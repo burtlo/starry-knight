@@ -1,16 +1,20 @@
 class Star < Metro::Model
 
-  attr_accessor :x, :y, :animation
+  property :image_path, type: :text, default: "star.png"
+  property :color
 
-  def initialize
-    @color = Gosu::Color.new(0xff000000)
-    @color.red = rand(256-40) + 40
-    @color.green = rand(256-40) + 40
-    @color.blue = rand(256-40) + 40
+  attr_writer :x, :y, :animation
+
+  def after_initialize
+    self.color = Gosu::Color.new "rgba(#{rand_between(40,256)},#{rand_between(40,256)},#{rand_between(40,256)},1.0)"
+  end
+  
+  def rand_between(bottom,top)
+    rand(top-bottom) + bottom
   end
 
   def animation
-    @animation ||= Gosu::Image::load_tiles(window, asset_path("star.png"), 25, 25, false)
+    @animation ||= Gosu::Image::load_tiles(window, asset_path(image_path), 25, 25, false)
   end
 
   def x
