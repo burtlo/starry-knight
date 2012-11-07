@@ -1,7 +1,7 @@
 class ScoreBoard < Metro::Model
 
-  property :position, default: Metro::Point.at(10,10)
-  property :scale, default: Metro::Scale.one
+  property :position, default: Point.at(10,10)
+  property :scale, default: Scale.one
   
   property :color, default: "rgb(255,255,0)"
 

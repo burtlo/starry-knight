@@ -2,26 +2,20 @@
   "title": {
     "model": "metro::models::label",
     "text": "STARRY KNIGHT",
-    "x": 28,
-    "y": 129,
+    "position": "28,129,4",
     "font": { "size" : 60 },
-    "z_order": 4,
     "color": "rgba(255,255,0,1.0)"
   },
   "logo": {
     "model": "metro::models::image",
-    "x": 536,
-    "y": 147,
-    "z_order": 4,
+    "position": "536,147,4",
     "color": "rgba(255,255,255,1.0)",
     "image": "player.png"
   },
   "galaxy": {
     "model": "metro::models::image",
     "image": "galaxy.jpeg",
-    "x": 75,
-    "y": 410,
-    "z_order": 0,
+    "position": "75,410,0",
     "color": "rgba(255,255,255,0.4)"
   },
   "menu": {
@@ -30,9 +24,7 @@
       "Exit"
     ],
     "model": "metro::models::menu",
-    "x": 465,
-    "y": 324,
-    "z_order": 5,
+    "position": "465,324,5",
     "unselected_color": "rgba(119,119,119,0.0)",
     "selected_color": "rgba(255,255,255,0.0)"
   }

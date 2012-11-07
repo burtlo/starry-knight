@@ -1,12 +1,9 @@
 ---
-player:
-  image: player.png
+player: {}
 star_generator: {}
 score_board: {}
 galaxy:
   model: metro::models::image
   image: galaxy.jpeg
-  x: 75
-  y: 410
-  z_order: 0
+  position: "75,410,-1"
   color: rgba(255,255,255,0.4)

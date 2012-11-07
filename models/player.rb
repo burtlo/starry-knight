@@ -4,7 +4,8 @@ class Player < Metro::Model
   property :angle, type: :numeric, default: 0.0
   property :vel_x, type: :numeric, default: 0.0
   property :vel_y, type: :numeric, default: 0.0
-  property :image
+  property :image, path: "player.png"
+
 
   event :on_hold, Gosu::KbLeft, Gosu::GpLeft do
     turn_left
@@ -17,7 +18,6 @@ class Player < Metro::Model
   event :on_hold, Gosu::KbUp, Gosu::GpButton0 do
     accelerate
   end
-
 
   def warp(point)
     self.position = point
@@ -53,7 +53,7 @@ class Player < Metro::Model
   end
 
   def draw
-    image.draw_rot(x,y,2,angle)
+    image.draw_rot(x,y,z_order,angle)
   end
 
 end
