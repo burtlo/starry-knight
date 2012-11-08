@@ -14,18 +14,4 @@ class TitleScene < GameScene
     window.close
   end
 
-  # TODO: this is an event that needs to be defined globally within the game when in debug mode
-
-  event :on_up, KbE do
-    # TODO: this should instead transition to an edit scene of the current scene.
-    # enable_edit_mode
-    log.debug "Going to edit mode"
-    transition_to self, with: :edit
-  end
-
-  event :on_up, KbL do |event|
-    log.debug "L #{event.modifier_keys}"
-    log.debug "Going to Love Mode" if event.alt?
-  end
-
 end
