@@ -21,6 +21,8 @@ class MainScene < GameScene
 
   def update
     player.collect_stars star_generator.stars
+    player.position = Point.new (player.x % Game.width), (player.y % Game.height)
+    
   end
 
 end

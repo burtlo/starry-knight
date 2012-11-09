@@ -3,7 +3,7 @@ class TitleTransitionScene < GameScene
   draw :logo, model: 'metro::models::image', from: :previous_scene
   draw :title, model: 'metro::models::label', from: :previous_scene
   draw :galaxy, model: 'metro::models::image', from: :previous_scene
-  
+
   def show
     animate :logo, to: { x: Game.center.x, y: Game.center.y, angle: -360.0 }, interval: 80, easing: :ease_in do
       transition_to :main
@@ -13,7 +13,7 @@ class TitleTransitionScene < GameScene
   end
 
   event :on_up, KbEscape do
-    transition_to :main, with: :fade
+    transition_to :main, with: :fade, interval: 30.ticks
   end
 
 end

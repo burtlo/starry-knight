@@ -1,49 +1,33 @@
 class Player < Metro::Model
 
   property :position
-  property :angle, type: :numeric, default: 0.0
-  property :vel_x, type: :numeric, default: 0.0
-  property :vel_y, type: :numeric, default: 0.0
+  property :angle, default: 0.0
+  property :turn_amount, default: 4.5
   property :image, path: "player.png"
 
+  property :acceleration, default: 0.5
+  property :velocity, default: Velocity.of(0,0,0,0.95)
 
   event :on_hold, KbLeft, GpLeft do
-    turn_left
+    self.angle -= turn_amount
   end
 
   event :on_hold, KbRight, GpRight do
-    turn_right
+    self.angle += turn_amount
   end
 
   event :on_hold, KbUp, GpButton0 do
-    accelerate
+    velocity.x += Gosu.offset_x(angle.to_f,acceleration)
+    velocity.y += Gosu.offset_y(angle.to_f,acceleration)
   end
 
   def warp(point)
     self.position = point
   end
 
-  def turn_left
-    self.angle -= 4.5
-  end
-
-  def turn_right
-    self.angle += 4.5
-  end
-
-  def accelerate
-    self.vel_x += Gosu.offset_x(angle,0.5)
-    self.vel_y += Gosu.offset_y(angle,0.5)
-  end
-
   def update
-    self.x += vel_x
-    self.y += vel_y
-    self.x %= Game.width
-    self.y %= Game.height
-
-    self.vel_x *= 0.95
-    self.vel_y *= 0.95
+    self.position += velocity
+    velocity.decay!
   end
 
   def collect_stars(stars)
@@ -53,7 +37,7 @@ class Player < Metro::Model
   end
 
   def draw
-    image.draw_rot(x,y,z_order,angle)
+    image.draw_rot(x,y,z_order,angle.to_f)
   end
 
 end

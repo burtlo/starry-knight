@@ -9,4 +9,6 @@ class GameScene < Metro::Scene
   event :on_up, KbE do |event|
     transition_to scene_name, with: :edit
   end
+
 end
+
