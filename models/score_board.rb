@@ -2,7 +2,7 @@ class ScoreBoard < Metro::Model
 
   property :position, default: Point.at(10,10)
   property :scale, default: Scale.one
-  
+
   property :color, default: "rgb(255,255,0)"
 
   property :font, default: { size: 20 }
@@ -13,7 +13,10 @@ class ScoreBoard < Metro::Model
 
   attr_reader :score
 
+  property :ding, type: :sample, path: "pickup.wav"
+
   event :notification, :star_collected do |target,sender|
+    target.ding.play
     target.score[sender] += 1
   end
 
@@ -22,12 +25,12 @@ class ScoreBoard < Metro::Model
       "#{player_label(score.first,index)} #{score.last}"
     end.join("\n")
   end
-  
+
   #
   # While the score board can support mulitple users,
   # we are not going to show the name or player number
   # and simply display score:
-  # 
+  #
   def player_label(player,index)
     "Score:"
   end

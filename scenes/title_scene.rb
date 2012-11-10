@@ -6,6 +6,12 @@ class TitleScene < GameScene
 
   animate :menu, to: { alpha: 255 }, interval: 1.second
 
+  play :theme, song: "title.wav", volume: 0.2
+
+  event :on_up, KbP do |event|
+    theme.pause
+  end
+
   def start_game
     transition_to :title_transition
   end
