@@ -23,5 +23,5 @@ star3:
 galaxy:
   :model: metro::models::image
   :image: galaxy.jpeg
-  :position: 202.0,305.0,0.0
+  :position: "75,410,0"
   :color: rgba(255,255,255,0.4)
