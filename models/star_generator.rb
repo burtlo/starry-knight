@@ -12,12 +12,16 @@ class StarGenerator < Metro::Model
       star.window = window
       stars.push star
     end
+
+    stars.reject! { |star| star.state == "dead" }
   end
 
   def generate_star
     star = Star.new
+    star.window = window
     star.color = random_color_within_range(40,256)
     star.position = random_position
+    star.show
     star
   end
 
@@ -28,14 +32,12 @@ class StarGenerator < Metro::Model
   def rand_between(min,max)
     rand(max-min) + min
   end
-  
+
   def random_position
     Point.at (rand * Game.width), (rand * Game.height)
   end
 
   def draw
-    stars.each do |star|
-      star.draw
-    end
+    stars.each { |star| star.draw }
   end
 end

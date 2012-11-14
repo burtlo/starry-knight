@@ -11,15 +11,12 @@ logo:
   :position: '536,380,4'
   :image: player.png
   :color: rgba(255,255,255,0.0)
-star:
-  :model: star
-  :position: '100,80'
-star2:
-  :model: star
-  :position: '455,333'
-star3:
-  :model: star
-  :position: '515,40'
+background_space1:
+  :model: background_space
+  :position: "250,200,1"
+background_space2:
+  :model: background_space
+  :position: "500,300,1"
 galaxy:
   :model: metro::models::image
   :image: galaxy.jpeg

@@ -7,3 +7,9 @@ galaxy:
   image: galaxy.jpeg
   position: "75,410,-1"
   color: rgba(255,255,255,0.4)
+background_space1:
+  :model: background_space
+  :position: "250,200,1"
+background_space2:
+  :model: background_space
+  :position: "500,300,1"

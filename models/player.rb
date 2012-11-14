@@ -29,11 +29,9 @@ class Player < Metro::Model
     self.position += velocity
     velocity.decay!
   end
-
-  def collect_stars(stars)
-    if stars.reject! {|star| Gosu.distance(x, y, star.x, star.y) < 35 }
-      notification :star_collected
-    end
+  
+  def z_order
+    10
   end
 
   def draw

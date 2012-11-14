@@ -1,5 +1,0 @@
-debug:
-  model: "metro::models::label"
-  text: "Player: #{logo.x.to_f.floor} #{logo.y.to_f.floor}"
-  position: "10,10,5"
-  color: "rgba(255,255,0,1.0)"
