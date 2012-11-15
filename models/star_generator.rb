@@ -1,9 +1,11 @@
 class StarGenerator < Metro::Model
 
-  attr_accessor :stars
+  def stars
+    @stars ||= []
+  end
 
-  def initialize
-    @stars = []
+  def living_stars
+    stars_in_state :living
   end
 
   def update
@@ -14,6 +16,16 @@ class StarGenerator < Metro::Model
     end
 
     stars.reject! { |star| star.state == "dead" }
+  end
+
+  def draw
+    stars.each { |star| star.draw }
+  end
+
+  private
+
+  def stars_in_state(state)
+    stars.find_all { |star| star.state == state.to_s }
   end
 
   def generate_star
@@ -37,7 +49,4 @@ class StarGenerator < Metro::Model
     Point.at (rand * Game.width), (rand * Game.height)
   end
 
-  def draw
-    stars.each { |star| star.draw }
-  end
 end

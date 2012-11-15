@@ -23,7 +23,7 @@ class MainScene < GameScene
 
 
   def collect_stars!
-    living_stars = star_generator.stars.find_all { |star| star.state == "living" }
+    living_stars = star_generator.living_stars
 
     living_stars.find_all {|star| Gosu.distance(player.x, player.y, star.x, star.y) < 35 }.each do |star|
       star.collapse
