@@ -12,6 +12,10 @@
     "color": "rgba(255,255,255,1.0)",
     "image": "player.png"
   },
+  "light_beam": {
+    "position": "450,180,2",
+    "color": "rgba(255,255,255,0.0)"
+  },
   "galaxy": {
     "model": "metro::models::image",
     "image": "galaxy.jpeg",
