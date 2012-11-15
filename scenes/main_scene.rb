@@ -1,10 +1,7 @@
 class MainScene < GameScene
 
   draws :player, :star_generator, :score_board, :galaxy
-
   draws :background_space1, :background_space2
-
-  animate :galaxy, to: { alpha: 160 }, interval: 1.seconds
 
   event :on_up, KbEscape do
     transition_to :title
@@ -20,7 +17,6 @@ class MainScene < GameScene
   def show
     player.warp Game.center
   end
-
 
   def collect_stars!
     living_stars = star_generator.living_stars
