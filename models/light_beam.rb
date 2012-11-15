@@ -3,21 +3,16 @@ class LightBeam < Metro::Model
   property :animation, path: "beam-of-light.png",
     dimensions: Dimensions.of(128,128)
   property :color
+  property :scale, default: Scale.to(2.5,2.5)
 
-  def show
-    @start_time = Gosu::milliseconds
-  end
+  include ModelWithAnimation
 
-  def middle_x(image)
-    x - image.width / 2.0
-  end
-
-  def middle_y(image)
-    y - image.height / 2.0
+  def time_per_image
+    100
   end
 
   def draw
-    image = animation.image(@start_time,100)
-    image.draw(middle_x(image),middle_y(image), 1, 2.5, 2.5, color, :add)
+    image = animation.image(start_time: start_time, image_time: time_per_image)
+    image.draw(middle_x(image),middle_y(image), 1, x_factor, y_factor, color, :add)
   end
 end

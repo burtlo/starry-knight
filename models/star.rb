@@ -7,12 +7,20 @@ class Star < Metro::Model
     property :animation, path: "implode.png", dimensions: Dimensions.of(64,64)
     property :state, type: :text, default: "forming"
 
-    def after_initialize
-      @start_time = Gosu::milliseconds
+    def start_time
+      @start_time ||= Gosu::milliseconds
     end
 
+    def current_time
+      Gosu::milliseconds
+    end
+
+    def lifetime
+      800
+    end
+    
     def completed?
-      (Gosu::milliseconds - @start_time) > 800
+      (current_time - start_time) > lifetime
     end
 
     def next
@@ -22,7 +30,7 @@ class Star < Metro::Model
     end
 
     def image
-      animation.image(@start_time)
+      animation.image(start_time: start_time, image_time: 50)
     end
 
   end
@@ -31,18 +39,18 @@ class Star < Metro::Model
     property :animation, path: "star3.png", dimensions: Dimensions.of(64,64)
     property :state, type: :text, default: "living"
 
-    def after_initialize
-      @start_time = Gosu::milliseconds
-    end
-
     def next
       c = Collapsed.new
       c.window = window
       c
     end
     
+    def start_time
+      @start_time ||= Gosu::milliseconds
+    end
+
     def image
-      animation.image(@start_time)
+      animation.image(start_time: start_time, image_time: 50)
     end
     
   end
@@ -51,32 +59,38 @@ class Star < Metro::Model
     property :animation, path: "star-pickup.png", dimensions: Dimensions.of(64,64)
     property :state, type: :text, default: "collapsed"
 
-    def after_initialize
-      @start_time = Gosu::milliseconds
+    def start_time
+      @start_time ||= Gosu::milliseconds
+    end
+
+    def current_time
+      Gosu::milliseconds
+    end
+
+    def lifetime
+      750
     end
 
     def completed?
-      (Gosu::milliseconds - @start_time) > 1500
+      (current_time - start_time) > lifetime
+    end
+
+    def next_state
+      Dead
     end
 
     def next
-      Dead.new
+      next_state.new
     end
 
     def image
-      animation.image(@start_time)
+      animation.image(start_time: start_time, image_time: 25)
     end
 
   end
 
   class Dead < Metro::Model
     property :state, type: :text, default: "dead"
-
-    class NoImage
-      def draw(*args) ; end
-      def width ; 1 ; end
-      def height ; 1 ; end
-    end
 
     def image
       NoImage.new
@@ -88,13 +102,7 @@ class Star < Metro::Model
 
   end
 
-  def middle_x(image)
-    x - image.width / 2.0
-  end
-
-  def middle_y(image)
-    y - image.height / 2.0
-  end
+  include ModelWithAnimation
 
   def show
     f = Forming.new
