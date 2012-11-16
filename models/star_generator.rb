@@ -1,9 +1,11 @@
 class StarGenerator < Metro::Model
 
-  attr_accessor :stars
+  def stars
+    @stars ||= []
+  end
 
-  def initialize
-    @stars = []
+  def living_stars
+    stars_in_state :living
   end
 
   def update
@@ -12,12 +14,26 @@ class StarGenerator < Metro::Model
       star.window = window
       stars.push star
     end
+
+    stars.reject! { |star| star.state == "dead" }
+  end
+
+  def draw
+    stars.each { |star| star.draw }
+  end
+
+  private
+
+  def stars_in_state(state)
+    stars.find_all { |star| star.state == state.to_s }
   end
 
   def generate_star
     star = Star.new
+    star.window = window
     star.color = random_color_within_range(40,256)
     star.position = random_position
+    star.show
     star
   end
 
@@ -28,14 +44,9 @@ class StarGenerator < Metro::Model
   def rand_between(min,max)
     rand(max-min) + min
   end
-  
+
   def random_position
     Point.at (rand * Game.width), (rand * Game.height)
   end
 
-  def draw
-    stars.each do |star|
-      star.draw
-    end
-  end
 end

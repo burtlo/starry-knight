@@ -1,19 +1,87 @@
 class Star < Metro::Model
 
   property :position
-  property :animation, path: "star.png", dimensions: Dimensions.of(25,25)
   property :color
-  
-  def middle_x(image)
-    x - image.width / 2.0
-  end
-  
-  def middle_y(image)
-    y - image.height / 2.0
+
+  class Forming < Metro::Model
+    property :animation, path: "implode.png", dimensions: Dimensions.of(64,64), time_per_image: 25
+    property :state, type: :text, default: "forming"
+
+    def image
+      animation.image
+    end
+
+    def completed?
+      animation.complete?
+    end
+
+    def next
+      create "Star::Living"
+    end
   end
 
+  class Living < Metro::Model
+    property :animation, path: "living.png", dimensions: Dimensions.of(64,64), time_per_image: 100
+    property :state, type: :text, default: "living"
+
+    def image
+      animation.image
+    end
+
+    def next
+      create "Star::Collapsed"
+    end
+  end
+
+  class Collapsed < Metro::Model
+    property :animation, path: "explode.png", dimensions: Dimensions.of(64,64), time_per_image: 25
+    property :state, type: :text, default: "collapsed"
+
+    def image
+      animation.image
+    end
+
+    def completed?
+      animation.complete?
+    end
+
+    def next
+      create "Star::Dead"
+    end
+  end
+
+  class Dead < Metro::Model
+    property :state, type: :text, default: "dead"
+
+    def image
+      NoImage.new
+    end
+
+    def next
+      raise "The World Is Collpasing!"
+    end
+  end
+
+  def show
+    @state = create "Star::Forming"
+  end
+
+  def current_state
+    @state.completed? ? @state = @state.next : @state
+  end
+
+  def state
+    current_state.state
+  end
+
+  def collapse
+    @state = @state.next if @state.state == "living"
+  end
+
+  include ImagePlacementHelpers
+
   def draw
-    img = animation.image
-    img.draw(middle_x(img),middle_y(img), 1, 1, 1, color, :add)
+    image = current_state.image
+    image.draw(middle_x(image),middle_y(image), 1, 1, 1, color, :add)
   end
 end
