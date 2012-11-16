@@ -1,17 +1,3 @@
-module Metro
-  class Model
-
-    def create(model_name)
-      model_class = Metro::Model.model(model_name).constantize
-      mc = model_class.new
-      mc.scene = scene
-      mc.window = window
-      mc
-    end
-  end
-end
-
-
 class Star < Metro::Model
 
   property :position
