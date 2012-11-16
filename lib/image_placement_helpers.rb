@@ -1,8 +1,4 @@
-module ModelWithAnimation
-
-  def start_time
-    @start_time ||= Gosu::milliseconds
-  end
+module ImagePlacementHelpers
 
   def middle_x(image)
     x - image.width / 2.0

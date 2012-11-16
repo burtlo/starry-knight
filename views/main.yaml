@@ -3,7 +3,7 @@ player: {}
 star_generator: {}
 score_board: {}
 galaxy:
-  model: metro::models::image
+  model: metro::ui::image
   image: galaxy.jpeg
   position: "75,410,-1"
   color: rgba(255,255,255,0.4)

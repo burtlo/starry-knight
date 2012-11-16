@@ -1,9 +1,9 @@
 class TitleTransitionScene < GameScene
 
-  draw :logo, model: 'metro::models::image', from: :previous_scene
-  draw :title, model: 'metro::models::label', from: :previous_scene
+  draw :logo, model: 'metro::ui::image', from: :previous_scene
+  draw :title, model: 'metro::ui::label', from: :previous_scene
 
-  draw :galaxy, model: 'metro::models::image', from: :previous_scene
+  draw :galaxy, model: 'metro::ui::image', from: :previous_scene
   draw :background_space1, model: 'background_space', from: :previous_scene
   draw :background_space2, model: 'background_space', from: :previous_scene
 

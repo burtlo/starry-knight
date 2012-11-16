@@ -1,92 +1,67 @@
+module Metro
+  class Model
+
+    def create(model_name)
+      model_class = Metro::Model.model(model_name).constantize
+      mc = model_class.new
+      mc.scene = scene
+      mc.window = window
+      mc
+    end
+  end
+end
+
+
 class Star < Metro::Model
 
   property :position
   property :color
 
   class Forming < Metro::Model
-    property :animation, path: "implode.png", dimensions: Dimensions.of(64,64)
+    property :animation, path: "implode.png", dimensions: Dimensions.of(64,64), time_per_image: 25
     property :state, type: :text, default: "forming"
 
-    def start_time
-      @start_time ||= Gosu::milliseconds
+    def image
+      animation.image
     end
 
-    def current_time
-      Gosu::milliseconds
-    end
-
-    def lifetime
-      800
-    end
-    
     def completed?
-      (current_time - start_time) > lifetime
+      animation.complete?
     end
 
     def next
-      l = Living.new
-      l.window = window
-      l
+      create "Star::Living"
     end
-
-    def image
-      animation.image(start_time: start_time, image_time: 50)
-    end
-
   end
 
   class Living < Metro::Model
-    property :animation, path: "star3.png", dimensions: Dimensions.of(64,64)
+    property :animation, path: "living.png", dimensions: Dimensions.of(64,64), time_per_image: 100
     property :state, type: :text, default: "living"
 
-    def next
-      c = Collapsed.new
-      c.window = window
-      c
-    end
-    
-    def start_time
-      @start_time ||= Gosu::milliseconds
+    def image
+      animation.image
     end
 
-    def image
-      animation.image(start_time: start_time, image_time: 50)
+    def next
+      create "Star::Collapsed"
     end
-    
   end
 
   class Collapsed < Metro::Model
-    property :animation, path: "star-pickup.png", dimensions: Dimensions.of(64,64)
+    property :animation, path: "explode.png", dimensions: Dimensions.of(64,64), time_per_image: 25
     property :state, type: :text, default: "collapsed"
 
-    def start_time
-      @start_time ||= Gosu::milliseconds
-    end
-
-    def current_time
-      Gosu::milliseconds
-    end
-
-    def lifetime
-      750
+    def image
+      animation.image
     end
 
     def completed?
-      (current_time - start_time) > lifetime
-    end
-
-    def next_state
-      Dead
+      animation.complete?
     end
 
     def next
-      next_state.new
+      create "Star::Dead"
     end
-
-    def image
-      animation.image(start_time: start_time, image_time: 25)
-    end
-
   end
 
   class Dead < Metro::Model
@@ -99,20 +74,14 @@ class Star < Metro::Model
     def next
       raise "The World Is Collpasing!"
     end
-
   end
 
-  include ModelWithAnimation
-
   def show
-    f = Forming.new
-    f.window = window
-    @state = f
+    @state = create "Star::Forming"
   end
 
   def current_state
-    @state = @state.next if @state.completed?
-    @state
+    @state.completed? ? @state = @state.next : @state
   end
 
   def state
@@ -120,8 +89,10 @@ class Star < Metro::Model
   end
 
   def collapse
-    @state = @state.next if state == "living"
+    @state = @state.next if @state.state == "living"
   end
+
+  include ImagePlacementHelpers
 
   def draw
     image = current_state.image

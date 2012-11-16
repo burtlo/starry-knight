@@ -1,13 +1,15 @@
 {
   "title": {
-    "model": "metro::models::label",
+    "model": "metro::ui::label",
     "text": "STARRY KNIGHT",
     "position": "28,129,4",
-    "font": { "size" : 60 },
+    "font": {
+      "size": 60
+    },
     "color": "rgba(255,255,0,1.0)"
   },
   "logo": {
-    "model": "metro::models::image",
+    "model": "metro::ui::image",
     "position": "536,147,4",
     "color": "rgba(255,255,255,1.0)",
     "image": "player.png"
@@ -17,7 +19,7 @@
     "color": "rgba(255,255,255,0.0)"
   },
   "galaxy": {
-    "model": "metro::models::image",
+    "model": "metro::ui::image",
     "image": "galaxy.jpeg",
     "position": "75,410,0",
     "color": "rgba(255,255,255,0.4)"
@@ -25,19 +27,24 @@
   "background_space1": {
     "model": "background_space",
     "position": "250,200,1"
-    },
+  },
   "background_space2": {
     "model": "background_space",
     "position": "500,300,1"
-    },
+  },
   "menu": {
+    "model": "metro::ui::menu",
+    "position": "472.0,353.0,5.0",
+    "unselected_color": "rgba(119,119,119,0.0)",
+    "selected_color": "rgba(255,255,255,0.0)",
     "options": [
       "Start Game",
       "Exit"
-    ],
-    "model": "metro::models::menu",
-    "position": "465,324,5",
-    "unselected_color": "rgba(119,119,119,0.0)",
-    "selected_color": "rgba(255,255,255,0.0)"
+    ]
+  },
+  "theme": {
+    "song": "title.ogg",
+    "volume": 0.2,
+    "model": "metro::audio::song"
   }
 }
