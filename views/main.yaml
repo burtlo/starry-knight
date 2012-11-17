@@ -13,3 +13,14 @@ background_space1:
 background_space2:
   :model: background_space
   :position: "500,300,1"
+move_instruction: &instruction
+  model: label_with_image
+  text: Up Arrow To Move Forward
+  color: "rgba(255,255,255,0.0)"
+  background_color: "rgba(127,127,127,0.2)"
+  align: "center"
+  image: "up.png"
+steering_instruction:
+  <<: *instruction
+  text: Left Arrow and Right Arrow To Steer
+  image: "left-and-right.png"
