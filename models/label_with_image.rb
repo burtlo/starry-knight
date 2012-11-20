@@ -8,7 +8,7 @@ class LabelWithImage < Metro::Model
   property :background_color, type: :color, default: "rgba(127,127,127,1.0)"
 
   property :font, default: { size: 20 }
-  property :text
+  property :text, type: :text
 
   property :padding, default: 10
 
@@ -17,18 +17,34 @@ class LabelWithImage < Metro::Model
   property :center_x, type: :numeric, default: 0
   property :center_y, type: :numeric, default: 0
 
+  property :sample, path: "mumble.wav"
+
+  property :max_width, default: 300
+
   def show
     background_color.alpha = color.alpha
   end
 
   property :scale, default: Scale.one
   property :dimensions do
-    width = text_width + padding + image.width
-    height = (text_height > image.height ? text_height : image.height)
+    width = longest_text_width + padding + image.width
+    height = (total_text_height > image.height ? total_text_height : image.height)
     Dimensions.of width, height
   end
 
-  def text_width
+  def parsed_text
+    text.split("\n")
+  end
+
+  def longest_text_width
+    parsed_text.map { |line| text_width(line) }.max
+  end
+  
+  def total_text_height
+    parsed_text.count * text_height
+  end
+
+  def text_width(text)
     (font.text_width(text) * x_factor)
   end
 
@@ -78,7 +94,9 @@ class LabelWithImage < Metro::Model
   end
 
   def draw_text
-    font.draw text, text_x_position, y + padding, z_order, x_factor, y_factor, color
+    parsed_text.each_with_index do |line,index|
+      font.draw line, text_x_position, y + padding + (text_height * index), z_order, x_factor, y_factor, color
+    end
   end
 
   def draw

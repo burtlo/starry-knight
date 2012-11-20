@@ -2,7 +2,7 @@ class TitleScene < GameScene
 
   draws :title, :logo, :light_beam
   draws :galaxy, :background_space1, :background_space2
-  draw :menu, options: [ 'Start Game', 'Exit' ]
+  draw :menu
 
   animate :light_beam, to: { alpha: 255 }, interval: 1.second
   animate :menu, to: { alpha: 255 }, interval: 1.second

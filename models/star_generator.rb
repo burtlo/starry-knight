@@ -1,5 +1,8 @@
 class StarGenerator < Metro::Model
 
+  property :max_stars, default: 25
+  property :percentage_chance_of_new_star, default: 5
+
   def stars
     @stars ||= []
   end
@@ -9,12 +12,10 @@ class StarGenerator < Metro::Model
   end
 
   def update
-    if rand(100) < 5 and stars.size < 25
+    if rand(100) < percentage_chance_of_new_star and stars.size < max_stars
       star = generate_star
-      star.window = window
       stars.push star
     end
-
     stars.reject! { |star| star.state == "dead" }
   end
 
@@ -29,8 +30,7 @@ class StarGenerator < Metro::Model
   end
 
   def generate_star
-    star = Star.new
-    star.window = window
+    star = create "star"
     star.color = random_color_within_range(40,256)
     star.position = random_position
     star.show

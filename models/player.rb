@@ -9,11 +9,11 @@ class Player < Metro::Model
   property :velocity, default: Velocity.of(0,0,0,0.95)
 
   event :on_hold, KbLeft, GpLeft do
-    self.angle -= turn_amount
+    self.angle = self.angle - turn_amount
   end
 
   event :on_hold, KbRight, GpRight do
-    self.angle += turn_amount
+    self.angle = self.angle + turn_amount
   end
 
   event :on_hold, KbUp, GpButton0 do
@@ -21,19 +21,19 @@ class Player < Metro::Model
     velocity.y += Gosu.offset_y(angle.to_f,acceleration)
   end
 
+  def z_order
+    10
+  end
+
   def warp(point)
     self.position = point
   end
 
   def update
-    self.position += velocity
+    self.position = self.position + velocity
     velocity.decay!
   end
   
-  def z_order
-    10
-  end
-
   def draw
     image.draw_rot(x,y,z_order,angle.to_f)
   end

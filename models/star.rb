@@ -2,6 +2,7 @@ class Star < Metro::Model
 
   property :position
   property :color
+  property :scale, default: Scale.one
 
   class Forming < Metro::Model
     property :animation, path: "implode.png", dimensions: Dimensions.of(64,64), time_per_image: 25
@@ -82,6 +83,6 @@ class Star < Metro::Model
 
   def draw
     image = current_state.image
-    image.draw(middle_x(image),middle_y(image), 1, 1, 1, color, :add)
+    image.draw(middle_x(image),middle_y(image), z_order, x_factor, y_factor, color, :add)
   end
 end

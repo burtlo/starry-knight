@@ -13,6 +13,18 @@ background_space1:
 background_space2:
   :model: background_space
   :position: "500,300,1"
+story_instruction: &story_instruction
+  model: label_with_image
+  color: "rgba(255,255,255,0.0)"
+  background_color: "rgba(127,127,127,0.2)"
+  align: "center"
+  image: "player.png"
+story_01:
+  <<: *story_instruction
+  text: I am of the night sky
+story_02:
+  <<: *story_instruction
+  text: "My presence is known only by those that see,\nby those that believe"
 move_instruction: &instruction
   model: label_with_image
   text: Up Arrow To Move Forward
