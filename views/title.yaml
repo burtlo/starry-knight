@@ -28,6 +28,7 @@ menu:
   model: metro::ui::menu
   position: "472.0,353.0,5.0"
   alpha: 0
+  layout: 'vertical'
   unselected_color: "rgba(119,119,119,1.0)"
   selected_color: "rgba(255,255,255,1.0)"
   options:
@@ -36,8 +37,6 @@ menu:
     -
       model: "metro::ui::label"
       text: "Start Game"
-      font:
-        size: 28
     -
       model: "metro::ui::label"
       text: "Exit"
