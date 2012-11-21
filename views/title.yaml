@@ -37,6 +37,8 @@ menu:
     -
       model: "metro::ui::label"
       text: "Start Game"
+      font:
+        size: 30
     -
       model: "metro::ui::label"
       text: "Exit"
