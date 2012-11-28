@@ -1,42 +1,36 @@
 class ScoreBoard < Metro::Model
 
   property :position, default: Point.at(10,10)
-  property :scale, default: Scale.one
+  property :ding, type: :sample, path: "pickup.wav"
 
-  property :color, default: "rgb(255,255,0)"
-
-  property :font, default: { size: 20 }
-
-  def after_initialize
-    @score = Hash.new(0)
+  property :dimensions do
+    Dimensions.of label.width, label.height
   end
 
-  attr_reader :score
+  property :label, type: :model do
+    create "metro::ui::label", text: "", position: position,
+      font: { size: 30 }, color: "rgb(255,255,0)"
+  end
 
-  property :ding, type: :sample, path: "pickup.wav"
+  property :score, default: 0
+
+  def bounds
+    Bounds.new left: position.x, right: (position.x + width),
+      top: position.y, bottom: (position.y + height)
+  end
 
   event :notification, :star_collected do |sender,event_name|
     ding.play
-    score[sender] += 1
+    self.score += 1
+    label.text = text
   end
 
   def text
-    score.each_with_index.map do |score,index|
-      "#{player_label(score.first,index)} #{score.last}"
-    end.join("\n")
-  end
-
-  #
-  # While the score board can support mulitple users,
-  # we are not going to show the name or player number
-  # and simply display score:
-  #
-  def player_label(player,index)
-    "Score:"
+    "Score: #{score.to_i}"
   end
 
   def draw
-    font.draw text, x, y, z_order, x_factor, y_factor, color
+    label.draw
   end
 
 end
