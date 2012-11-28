@@ -1,6 +1,6 @@
 class Player < Metro::Model
 
-  property :position
+  property :position, default: Point.at(320,240,10)
   property :angle, default: 0.0
   property :turn_amount, default: 4.5
   property :image, path: "player.png"
@@ -21,10 +21,6 @@ class Player < Metro::Model
     velocity.y += Gosu.offset_y(angle.to_f,acceleration)
   end
 
-  def z_order
-    10
-  end
-
   def warp(point)
     self.position = point
   end
@@ -33,7 +29,7 @@ class Player < Metro::Model
     self.position = self.position + velocity
     velocity.decay!
   end
-  
+
   def draw
     image.draw_rot(x,y,z_order,angle.to_f)
   end

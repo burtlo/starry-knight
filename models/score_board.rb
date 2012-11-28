@@ -15,9 +15,9 @@ class ScoreBoard < Metro::Model
 
   property :ding, type: :sample, path: "pickup.wav"
 
-  event :notification, :star_collected do |target,sender|
-    target.ding.play
-    target.score[sender] += 1
+  event :notification, :star_collected do |sender,event_name|
+    ding.play
+    score[sender] += 1
   end
 
   def text

@@ -5,10 +5,14 @@ class LightBeam < Metro::Model
   property :color
   property :scale, default: Scale.to(2.5,2.5)
 
+  def bounds
+    Bounds.new left: left, right: right, top: top, bottom: bottom
+  end
+
   include ImagePlacementHelpers
 
   def draw
     image = animation.image
-    image.draw(middle_x(image),middle_y(image), 1, x_factor, y_factor, color, :add)
+    image.draw(middle_x(image),middle_y(image), z_order, x_factor, y_factor, color, :add)
   end
 end

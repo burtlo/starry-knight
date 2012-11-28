@@ -1,6 +1,8 @@
 
 name "Starry Knight"
 
+debug true
+
 author "Franklin Webber"
 contact "frank@franklinwebber.com"
 website "www.franklinwebber.com"
