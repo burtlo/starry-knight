@@ -3,16 +3,16 @@ class ScoreBoard < Metro::Model
   property :position, default: Point.at(10,10)
   property :ding, type: :sample, path: "pickup.wav"
 
-  property :dimensions do
-    Dimensions.of label.width, label.height
-  end
+  property :score, default: 0
 
   property :label, type: :model do
     create "metro::ui::label", text: "", position: position,
       font: { size: 30 }, color: "rgb(255,255,0)"
   end
 
-  property :score, default: 0
+  property :dimensions do
+    Dimensions.of label.width, label.height
+  end
 
   def bounds
     Bounds.new left: position.x, right: (position.x + width),

@@ -8,6 +8,30 @@ class Player < Metro::Model
   property :acceleration, default: 0.5
   property :velocity, default: Velocity.of(0,0,0,0.95)
 
+  property :dimensions do
+    image.dimensions
+  end
+
+  def bounds
+    Bounds.new left: left, right: right, top: top, bottom: bottom
+  end
+
+  def left
+    position.x - width/2
+  end
+
+  def right
+    left + width
+  end
+
+  def top
+    position.y - height/2
+  end
+
+  def bottom
+    top + height
+  end
+
   event :on_hold, KbLeft, GpLeft do
     self.angle = self.angle - turn_amount
   end

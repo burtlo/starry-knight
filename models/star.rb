@@ -5,7 +5,7 @@ class Star < Metro::Model
   property :scale, default: Scale.one
 
   class Forming < Metro::Model
-    property :animation, path: "implode.png", dimensions: Dimensions.of(64,64), time_per_image: 25
+    property :animation, path: "implode.png", dimensions: "64,64", time_per_image: 25
     property :state, type: :text, default: "forming"
 
     def image
@@ -22,7 +22,7 @@ class Star < Metro::Model
   end
 
   class Living < Metro::Model
-    property :animation, path: "living.png", dimensions: Dimensions.of(64,64), time_per_image: 100
+    property :animation, path: "living.png", dimensions: "64,64", time_per_image: 100
     property :state, type: :text, default: "living"
 
     def image
@@ -35,7 +35,7 @@ class Star < Metro::Model
   end
 
   class Collapsed < Metro::Model
-    property :animation, path: "explode.png", dimensions: Dimensions.of(64,64), time_per_image: 25
+    property :animation, path: "explode.png", dimensions: "64,64", time_per_image: 25
     property :state, type: :text, default: "collapsed"
 
     def image
