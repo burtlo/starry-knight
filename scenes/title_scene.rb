@@ -1,5 +1,7 @@
 class TitleScene < GameScene
 
+  draw :fps, model: "Metro::UI::FPS"
+
   draws :title, :logo, :light_beam
   draws :galaxy, :background_space1, :background_space2
   draw :menu

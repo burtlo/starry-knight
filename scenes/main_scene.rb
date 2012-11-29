@@ -1,5 +1,7 @@
 class MainScene < GameScene
 
+  draw :fps, model: "metro::ui::fps", placement: 'bottom_right'
+
   draws :player, :star_generator, :star_collection_monitor, :score_board
   draws :background_space1, :background_space2, :galaxy
 
