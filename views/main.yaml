@@ -1,38 +1,42 @@
 ---
-player: {}
+fps:
+  :model: metro::ui::fps
+  :placement: top
+player:
+  :position: 404.03105004033733,70.32992133218843,10.0
 star_generator: {}
-score_board: {}
-galaxy:
-  model: metro::ui::image
-  image: galaxy.jpeg
-  position: "75,410,-1"
-  color: rgba(255,255,255,0.4)
+star_collection_monitor: {}
+score_board:
+  :position: 534.60546875,392.45703125,0.0
 background_space1:
   :model: background_space
-  :position: "250,200,1"
+  :position: 10.125,13.13671875,1.0
 background_space2:
   :model: background_space
-  :position: "500,300,1"
-story_instruction: &story_instruction
-  model: label_with_image
-  color: "rgba(255,255,255,0.0)"
-  background_color: "rgba(127,127,127,0.2)"
-  align: "center"
-  image: "player.png"
+  :position: 376.453125,22.76953125,1.0
+galaxy:
+  :model: metro::ui::image
+  :image: galaxy.jpeg
+  :position: 223.06640625,192.69140625,-1.0
+  :color: rgba(255,255,255,0.4)
 story_01:
-  <<: *story_instruction
-  text: I am of the night sky
+  :model: label_with_image
+  :color: rgba(255,255,255,0.0)
+  :background_color: rgba(127,127,127,0.2)
+  :align: center
+  :image: player.png
+  :text: I am of the night sky
+  :position: 320.0,340.0,12.0
 story_02:
-  <<: *story_instruction
-  text: "My presence is known only by those that see,\nby those that believe"
-move_instruction: &instruction
-  model: label_with_image
-  text: Up Arrow To Move Forward
-  color: "rgba(255,255,255,0.0)"
-  background_color: "rgba(127,127,127,0.2)"
-  align: "center"
-  image: "up.png"
-steering_instruction:
-  <<: *instruction
-  text: Left Arrow and Right Arrow To Steer
-  image: "left-and-right.png"
+  :model: label_with_image
+  :color: rgba(255,255,255,0.0)
+  :background_color: rgba(127,127,127,0.2)
+  :align: center
+  :image: player.png
+  :text: ! 'My presence is known only by those that see,
+
+    by those that believe'
+  :position: 320.0,340.0,12.0
+timer:
+  :position: 20.0,440.0,15.0
+  :dimensions: 600.0,20.0

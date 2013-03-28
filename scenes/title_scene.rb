@@ -9,8 +9,8 @@ class TitleScene < GameScene
   animate :light_beam, to: { alpha: 255 }, interval: 1.second
   animate :menu, to: { alpha: 255 }, interval: 1.second
 
-  play :theme, song: "title.ogg", volume: 0.2
-  change :theme, to: { volume: 0.8 }, interval: 2.seconds
+  # play :theme, song: "title.ogg", volume: 0.2
+  # change :theme, to: { volume: 0.8 }, interval: 2.seconds
 
   event :on_up, KbP do |event|
     theme.pause

@@ -1,6 +1,6 @@
 class MainScene < GameScene
 
-  draw :fps, model: "metro::ui::fps", placement: 'bottom_right'
+  draw :fps, model: "metro::ui::fps", placement: 'top'
 
   draws :player, :star_generator, :star_collection_monitor, :score_board
   draws :background_space1, :background_space2, :galaxy
@@ -12,15 +12,15 @@ class MainScene < GameScene
 
   draw :timer, position: Point.at(20,440,15), dimensions: Dimensions.of(600,20)
 
-  after 1.second do
-    story_01.sample.play
-    fade_in_and_out(:story_01) do
-      after 1.second do
-        story_02.sample.play
-        fade_in_and_out(:story_02)
-      end
-    end
-  end
+  # after 1.second do
+  #   story_01.sample.play
+  #   fade_in_and_out(:story_01) do
+  #     after 1.second do
+  #       story_02.sample.play
+  #       fade_in_and_out(:story_02)
+  #     end
+  #   end
+  # end
 
   # after 1.second do
   #   fade_in_and_out(:move_instruction) do

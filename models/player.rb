@@ -1,36 +1,9 @@
-class Player < Metro::Model
-
-  property :position, default: Point.at(320,240,10)
-  property :angle, default: 0.0
+class Player < Metro::UI::Sprite
   property :turn_amount, default: 4.5
   property :image, path: "player.png"
 
   property :acceleration, default: 0.5
   property :velocity, default: Velocity.of(0,0,0,0.95)
-
-  property :dimensions do
-    image.dimensions
-  end
-
-  def bounds
-    Bounds.new left: left, right: right, top: top, bottom: bottom
-  end
-
-  def left
-    position.x - width/2
-  end
-
-  def right
-    left + width
-  end
-
-  def top
-    position.y - height/2
-  end
-
-  def bottom
-    top + height
-  end
 
   event :on_hold, KbLeft, GpLeft do
     self.angle = self.angle - turn_amount
@@ -54,8 +27,6 @@ class Player < Metro::Model
     velocity.decay!
   end
 
-  def draw
-    image.draw_rot(x,y,z_order,angle.to_f)
-  end
+  # Use the default sprite draw
 
 end
