@@ -34,6 +34,10 @@ class StarGenerator < Metro::Model
     star.color = random_color_within_range(40,256)
     star.position = random_position
     star.show
+
+    scene.space.add_body(star.body)
+    scene.space.add_shape(star.shape)
+
     star
   end
 

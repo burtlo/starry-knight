@@ -36,17 +36,34 @@ class MainScene < GameScene
 
   def show
     configure_star_collection_monitoring
+    space.add_body player.body
+    space.add_shape player.shape
     player.warp Game.center
   end
 
   def update
-    player.position = Point.new (player.x % Game.width), (player.y % Game.height)
-
+    # player.position = Point.new (player.x % Game.width), (player.y % Game.height)
+    player.validate_position
     # check to see if we have reached the required score for the level
-    timer.current -= 1
-    puts "Game Over" if timer.current == 1
+    # timer.current -= 1
+    # puts "Game Over" if timer.current == 1
 
+    space.step(delta)
+    player.shape.body.reset_forces
   end
+
+  def delta
+    @delta ||= (1.0/60.0)
+  end
+
+  def space
+    @space ||= begin
+      s = CP::Space.new
+      s.damping = 0.6
+      s
+    end
+  end
+
 
   private
 

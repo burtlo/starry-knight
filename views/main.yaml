@@ -17,7 +17,7 @@ background_space2:
 galaxy:
   :model: metro::ui::image
   :image: galaxy.jpeg
-  :position: 223.06640625,192.69140625,-1.0
+  :position: 103.2578125,201.94921875,-1.0
   :color: rgba(255,255,255,0.4)
 story_01:
   :model: label_with_image
