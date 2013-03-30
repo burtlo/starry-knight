@@ -38,7 +38,7 @@ class MainScene < GameScene
     configure_star_collection_monitoring
     space.add_body player.body
     space.add_shape player.shape
-    player.warp Game.center
+    player.warp Game.center.to_vec2
   end
 
   def update
