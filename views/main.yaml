@@ -8,17 +8,17 @@ star_generator: {}
 star_collection_monitor: {}
 score_board:
   :position: 534.60546875,392.45703125,0.0
-background_space1:
-  :model: background_space
-  :position: 10.125,13.13671875,1.0
-background_space2:
-  :model: background_space
-  :position: 376.453125,22.76953125,1.0
 galaxy:
   :model: metro::ui::image
   :image: galaxy.jpeg
-  :position: 103.2578125,201.94921875,-1.0
+  :position: 75.0,410.0,0.0
   :color: rgba(255,255,255,0.4)
+background_space1:
+  :model: background_space
+  :position: 250.0,200.0,1.0
+background_space2:
+  :model: background_space
+  :position: 500.0,300.0,1.0
 story_01:
   :model: label_with_image
   :color: rgba(255,255,255,0.0)

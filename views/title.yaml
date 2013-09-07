@@ -4,30 +4,30 @@ fps:
 title:
   :model: metro::ui::label
   :text: STARRY KNIGHT
-  :position: 77.0,254.0,4.0
+  :position: 28.0,129.0,4.0
   :font:
     size: 60
   :color: rgba(255,255,0,1.0)
 logo:
   :model: metro::ui::image
-  :position: 297.0,46.0,4.0
   :color: rgba(255,255,255,1.0)
   :image: player.png
+  :position: "536,147,4"
 light_beam:
-  :position: 133.89453125,58.91796875,2.0
+  :position: "386,135,2"
   :color: rgba(255,255,255,0.0)
   :scale: 2.5,2.5
 galaxy:
   :model: metro::ui::image
   :image: galaxy.jpeg
-  :position: 410.5,522.125,0.0
+  :position: 75.0,410.0,0.0
   :color: rgba(255,255,255,0.4)
 background_space1:
   :model: background_space
-  :position: 370.23828125,90.3203125,1.0
+  :position: 250.0,200.0,1.0
 background_space2:
   :model: background_space
-  :position: 86.61328125,95.17578125,1.0
+  :position: 500.0,300.0,1.0
 menu:
   :model: metro::ui::menu
   :position: 247.0,347.0,5.0
