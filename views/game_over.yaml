@@ -1,0 +1,11 @@
+# http://www.yaml.org/YAML_for_ruby.html
+---
+title:
+  model: "metro::ui::label"
+  text: "Your Scene"
+  align: center
+  vertical_align: center
+  position: "190,200,4"
+  font:
+    size: 60
+  color: "rgba(255,255,0,1.0)"

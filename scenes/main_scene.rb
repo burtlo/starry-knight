@@ -46,8 +46,9 @@ class MainScene < GameScene
     # player.position = Point.new (player.x % Game.width), (player.y % Game.height)
     player.validate_position
     # check to see if we have reached the required score for the level
-    # timer.current -= 1
-    # puts "Game Over" if timer.current == 1
+    timer.current -= 0.1
+
+    transition_to :game_over if timer.complete?
 
     space.step
     space.clean_up

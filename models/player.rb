@@ -23,10 +23,6 @@ class Player < Metro::UI::PhysicsSprite
     push(force.x,force.y)
   end
 
-  def show
-    self.debug = true
-  end
-
   def validate_position
     l_position = CP::Vec2.new(body.p.x % Game.width, body.p.y % Game.height)
     body.p = l_position
@@ -35,19 +31,5 @@ class Player < Metro::UI::PhysicsSprite
   def warp(point)
     body.p = point
   end
-
-  # def update
-  #   self.x = body.p.x
-  #   self.y = body.p.y
-  #   puts "body.t = #{body.t}"
-  # end
-  # def draw
-  #   # puts body.v.to_s
-  #   # dim = Dimensions.of(shape.bb.r - shape.bb.l,shape.bb.b - shape.bb.t)
-  #   # border = create "metro::ui::border", position: Point.at(shape.bb.l,shape.bb.t), dimensions: dim
-  #   # border.draw
-  #   dangle = body.a.to_degrees
-  #   image.draw_rot(body.p.x,body.p.y,2,dangle)
-  # end
 
 end
