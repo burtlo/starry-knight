@@ -21,8 +21,12 @@ class ScoreBoard < Metro::Model
 
   event :notification, :star_collected do |sender,event_name|
     ding.play
-    self.score += 1
+    self.score += star_collected_score
     label.text = text
+  end
+
+  def star_collected_score
+    1
   end
 
   def text

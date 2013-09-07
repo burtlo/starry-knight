@@ -35,8 +35,7 @@ class StarGenerator < Metro::Model
     star.position = random_position
     star.show
 
-    scene.space.add_body(star.body)
-    scene.space.add_shape(star.shape)
+    scene.space.add_object(star)
 
     star
   end

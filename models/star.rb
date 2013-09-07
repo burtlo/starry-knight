@@ -111,20 +111,24 @@ class Star < Metro::Model
 
   include ImagePlacementHelpers
 
-  def rtod(r)
-    r * 180 / Math::PI
-  end
-
-  def dtor(d)
-    d * Math::PI / 180
+  def image
+    current_state.image
   end
 
   def draw
-    dangle = rtod body.a
-    # dim = Dimensions.of(shape.bb.r - shape.bb.l,shape.bb.b - shape.bb.t)
-    # border = create "metro::ui::border", position: Point.at(shape.bb.l,shape.bb.t), dimensions: dim
-    # border.draw
-    image = current_state.image
     image.draw(body.p.x,body.p.y,z_order, x_factor, y_factor, color, :add)
+    draw_bounding_box if debug?
   end
+
+  def debug?
+    false
+  end
+
+  def draw_bounding_box
+    @bounding_box_border ||= create "metro::ui::border"
+    @bounding_box_border.position = Point.at(position.x,shape.bb.t)
+    @bounding_box_border.dimensions = Dimensions.of(shape.bb.r - shape.bb.l,shape.bb.b - shape.bb.t)
+    @bounding_box_border.draw
+  end
+
 end

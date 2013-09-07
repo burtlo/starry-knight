@@ -7,7 +7,7 @@ player:
 star_generator: {}
 star_collection_monitor: {}
 score_board:
-  :position: 534.60546875,392.45703125,0.0
+  :position: '500,392,10'
 galaxy:
   :model: metro::ui::image
   :image: galaxy.jpeg

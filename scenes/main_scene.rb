@@ -1,6 +1,8 @@
 class MainScene < GameScene
-
   draw :fps, model: "metro::ui::fps", placement: 'top'
+
+  # This has to go first before the other things that depend on the space
+  draw :space, model: "metro::ui::space"
 
   draws :player, :star_generator, :star_collection_monitor, :score_board
   draws :background_space1, :background_space2, :galaxy
@@ -36,8 +38,7 @@ class MainScene < GameScene
 
   def show
     configure_star_collection_monitoring
-    space.add_body player.body
-    space.add_shape player.shape
+    space.add_object(player)
     player.warp Game.center.to_vec2
   end
 
@@ -48,22 +49,9 @@ class MainScene < GameScene
     # timer.current -= 1
     # puts "Game Over" if timer.current == 1
 
-    space.step(delta)
-    player.shape.body.reset_forces
+    space.step
+    space.clean_up
   end
-
-  def delta
-    @delta ||= (1.0/60.0)
-  end
-
-  def space
-    @space ||= begin
-      s = CP::Space.new
-      s.damping = 0.6
-      s
-    end
-  end
-
 
   private
 
