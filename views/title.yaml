@@ -1,48 +1,46 @@
+---
+fps:
+  :model: Metro::UI::FPS
 title:
-  model: metro::ui::label
-  text: STARRY KNIGHT
-  position: "28,129,4"
-  font:
+  :model: metro::ui::label
+  :text: STARRY KNIGHT
+  :position: 28.0,129.0,4.0
+  :font:
     size: 60
-  color: "rgba(255,255,0,1.0)"
+  :color: rgba(255,255,0,1.0)
 logo:
-  model: metro::ui::image
-  position: "536,147,4"
-  color: "rgba(255,255,255,1.0)"
-  image: player.png
+  :model: metro::ui::image
+  :color: rgba(255,255,255,1.0)
+  :image: player.png
+  :position: "536,147,4"
 light_beam:
-  position: "450,180,2"
-  color: "rgba(255,255,255,0.0)"
+  :position: "386,135,2"
+  :color: rgba(255,255,255,0.0)
+  :scale: 2.5,2.5
 galaxy:
-  model: metro::ui::image
-  image: galaxy.jpeg
-  position: "75,410,0"
-  color: "rgba(255,255,255,0.4)"
+  :model: metro::ui::image
+  :image: galaxy.jpeg
+  :position: 75.0,410.0,0.0
+  :color: rgba(255,255,255,0.4)
 background_space1:
-  model: background_space
-  position: "250,200,1"
+  :model: background_space
+  :position: 250.0,200.0,1.0
 background_space2:
-  model: background_space
-  position: "500,300,1"
+  :model: background_space
+  :position: 500.0,300.0,1.0
 menu:
-  model: metro::ui::menu
-  position: "472.0,353.0,5.0"
-  alpha: 0
-  layout: 'vertical'
-  unselected_color: "rgba(119,119,119,1.0)"
-  selected_color: "rgba(255,255,255,1.0)"
-  options:
+  :model: metro::ui::menu
+  :position: 247.0,347.0,5.0
+  :selected_color: rgba(255,255,255,0.0)
+  :unselected_color: rgba(119,119,119,0.0)
+  :alpha: 0.0
+  :layout: vertical
+  :options:
     selected: 0
     items:
-    -
-      model: "metro::ui::label"
-      text: "Start Game"
+    - model: metro::ui::label
+      text: Start Game
       font:
         size: 30
-    -
-      model: "metro::ui::label"
-      text: "Exit"
-theme:
-  song: title.ogg
-  volume: 0.2
-  model: metro::audio::song
+    - model: metro::ui::label
+      text: Exit

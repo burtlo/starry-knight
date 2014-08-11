@@ -8,6 +8,10 @@ class Timer < Metro::Model
   property :total, default: 100
   property :border, default: 2
 
+  def complete?
+    current <= 1
+  end
+
   def draw
     draw_border
     draw_fill
