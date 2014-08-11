@@ -32,6 +32,10 @@ class Star < Metro::Model
     def next
       create "Star::Collapsed"
     end
+
+    def completed?
+      false
+    end
   end
 
   class Collapsed < Metro::Model
@@ -60,6 +64,10 @@ class Star < Metro::Model
 
     def next
       raise "The World Is Collpasing!"
+    end
+
+    def completed?
+      false
     end
   end
 
